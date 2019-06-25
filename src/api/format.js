@@ -46,6 +46,44 @@ export function recordType(row){
 };
 
 
+export function showType(row){
+    var data = row;
+    var str = "";
+    
+
+    // if(data == '10'){
+    //     str="全屏图片"; 
+    // }else if(data == '20'){
+    //     str="全屏视频"; 
+    // }else if(data == '30'){
+    //     str="(左1/3)图片:(右2/3)视频"; 
+    // }else if(data == '40'){
+    //     str="(左2/3)图片:(右1/3)视频"; 
+    // }else if(data == '50'){
+    //     str="(左1/3)视频:(右2/3)图片"; 
+    // }else if(data == '60'){
+    //     str="(左2/3)视频:(右1/3)图片"; 
+    // }
+
+     if(data == '10'){
+        str="图片全屏"; 
+    }else if(data == '20'){
+        str="视频全屏"; 
+    }else if(data == '30'){
+        str="图片视频1:2"; 
+    }else if(data == '40'){
+        str="视频图片2:1"; 
+    }else if(data == '50'){
+        str="图片1:2"; 
+    }else if(data == '60'){
+        str="图片2:1"; 
+    }else if(data == '70'){
+        str="图片1:1"; 
+    }
+    return str;
+};
+
+
 
 
 export function cardState(row){

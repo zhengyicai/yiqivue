@@ -36,20 +36,24 @@
           <el-table :data="datalist" highlight-current-row v-loading="listLoading" style="width: 100%;">
 		
 			
-			<el-table-column prop="userName" label="工程商名称" width="150" sortable>
+			<el-table-column prop="userName" label="用户名称" width="150" sortable>
 			</el-table-column>
-			<el-table-column prop="loginName" label="登录名" width="150" sortable>
+			<!-- <el-table-column prop="loginName" label="登录名" width="150" sortable>
+			</el-table-column> -->
+            <el-table-column prop="connect" label="联系人" width="150" sortable>
 			</el-table-column>
-			<el-table-column prop="mobile" label="手机号" width="250" sortable>
+			<el-table-column prop="mobile" label="手机号" width="150" sortable>
 			</el-table-column>
-            <el-table-column prop="code" label="厂商编号" width="150" sortable>
+            <el-table-column prop="address" label="联系地址" width="220" sortable>
 			</el-table-column>
-			<el-table-column  label="创建时间" min-width="150">
+            <el-table-column prop="code" label="代理商编号" width="140" sortable>
+			</el-table-column>
+			<el-table-column  label="创建时间" min-width="130">
 				<template slot-scope="scope">{{ scope.row.createTime | moment('YYYY-MM-DD') }}</template>
 			</el-table-column>
 			
          
-			<el-table-column  label="状态" min-width="120">
+			<el-table-column  label="状态" min-width="100">
 				<template slot-scope="scope">{{ state(scope.row.state)}}</template>
 			</el-table-column>
 
@@ -89,8 +93,14 @@
                      <!-- <el-form-item label="*厂商编号">
                       <el-input type="number" v-bind:disabled="isEdit" v-model="subData.code"  placeholder="请输入厂商编号"></el-input>
                     </el-form-item> -->
-                     <el-form-item label="手机号">
+                    <el-form-item label="*联系人">
+                        <el-input v-model="subData.connect"  placeholder="请输入联系人"></el-input>
+                    </el-form-item>
+                     <el-form-item label="*手机号">
                         <el-input v-model="subData.mobile"  placeholder="请输入手机号"></el-input>
+                    </el-form-item>
+                    <el-form-item label="*联系地址">
+                        <el-input v-model="subData.address"  placeholder="请输入联系地址"></el-input>
                     </el-form-item>
                     <!-- <el-form-item label="状态">
                         <el-radio-group v-model="subData.roleId">
@@ -186,7 +196,7 @@
     showAddPanel(){
         this.isEdit = false;
         this.dialogFormVisible = true;
-        this.formtitle ="新增厂商账户";   
+        this.formtitle ="新增用户账户";   
         
         this.subData = {
             userName: '',
@@ -196,6 +206,8 @@
             roleId: '',
             roleName: '',
             state: '10',
+            address: '',
+            connect: '',
             code:'',
             remark:''
         };
@@ -224,11 +236,26 @@
             });
             return false;
         }
+        if(this.subData.connect.trim() =="" || this.subData.connect == null){
+             this.$message({
+                message: "联系人不能为空",
+                type: 'error'
+            });
+            return false;
+        }
+        if(this.subData.address.trim() =="" || this.subData.address == null){
+             this.$message({
+                message: "联系地址不能为空",
+                type: 'error'
+            });
+            return false;
+        }        
+
     },
      edit(index, rows){
             this.isEdit = true;
             this.dialogFormVisible = true;
-		    this.formtitle ="修改厂商账户";   
+		    this.formtitle ="修改用户账户";   
             this.subData = rows;
             this.subData.password = "******";
         //alert("asdf");
@@ -279,11 +306,11 @@
       },
     open(){
        
-        if(this.formtitle == '新增厂商账户'){
+        if(this.formtitle == '新增用户账户'){
               
               if(this.communityId ==''){
                   this.$message({
-                    message: "请选择厂商",
+                    message: "请选择代理商",
                     type: 'error'
                   });
               }
@@ -294,7 +321,7 @@
               }
               this.subData.parentId =this.communityId;  //admin
               this.subData.roleId='8fd0882be71e11e8987f5254003ad144';
-              this.subData.roleName='工程商管理员';
+              this.subData.roleName='代理商管理员';
               this.subData.code=sessionStorage.getItem("code");
             
             RequestPost("/user/workAdd",this.subData).then(response => {
@@ -482,7 +509,7 @@
                
 
                 this.tree = [{
-                    label: '厂商管理',
+                    label: '代理商管理',
                     children: item,
                     id:'0'
                 }];
@@ -529,7 +556,7 @@
                
 
                 this.tree = [{
-                    label: '厂商管理',
+                    label: '代理商管理',
                     children: item,
                     id:'0'
                 }];

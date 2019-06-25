@@ -18,9 +18,9 @@
 		<el-table :data="datalist" highlight-current-row v-loading="listLoading" style="width: 100%;">
 		
 			
-			<el-table-column prop="communityNo" label="小区编号" width="120" sortable>
+			<el-table-column prop="communityNo" label="用户编号" width="120" sortable>
 			</el-table-column>
-			<el-table-column prop="communityName" label="小区名称" width="120" sortable>
+			<el-table-column prop="communityName" label="用户名称" width="120" sortable>
 			</el-table-column>
 			<el-table-column prop="province" label="省份" width="120" sortable>
 			</el-table-column>
@@ -41,13 +41,18 @@
 				<template slot-scope="scope">{{ state(scope.row.state)}}</template>
 			</el-table-column>
 			
-			<el-table-column prop="userName" label="物业员用户名" min-width="150">
+			<!-- <el-table-column prop="userName" label="物业员用户名" min-width="150">
 			</el-table-column>
 			<el-table-column label="物业员状态" min-width="110">
 				<template slot-scope="scope">{{ state(scope.row.userStatus)}}</template>
+			</el-table-column> -->
+			<el-table-column prop="code" label="代理商编号" min-width="110">
 			</el-table-column>
-			<el-table-column prop="code" label="厂商编号" min-width="110">
+			<el-table-column prop="userWorkName" label="代理商名称" min-width="110">
 			</el-table-column>
+
+
+			
 			<!-- <el-table-column prop="userWorkName" label="工程商用户名" min-width="150" sortable>
 			</el-table-column>
 			<el-table-column label="工程商状态" min-width="120">
@@ -55,11 +60,11 @@
 			</el-table-column> -->
 			<el-table-column label="操作" min-width="340">
 				<template scope="scope">
-				<el-button size="small" type="primary"  @click="editWork(scope.$index,scope.row)">工程商</el-button>
+				<!-- <el-button size="small" type="primary"  @click="editWork(scope.$index,scope.row)">工程商</el-button> -->
 				<el-button size="small" type="primary"  @click="edit(scope.$index,scope.row)">编辑</el-button>
-				<el-button size="small" type="primary"  v-if='scope.row.sysUserId=="" ||  scope.row.sysUserId ==null' @click="addAdmin(scope.$index,scope.row)">新增物业</el-button>
-				<el-button size="small" type="warning"  v-if='scope.row.sysUserId!="" &&  scope.row.sysUserId !=null' @click="editAdmin(scope.$index,scope.row)">修改物业</el-button>
-                <!-- <el-button size="small" type="danger" @click="deleteRow(scope.$index, scope.row)">删除</el-button> -->
+				<!-- <el-button size="small" type="primary"  v-if='scope.row.sysUserId=="" ||  scope.row.sysUserId ==null' @click="addAdmin(scope.$index,scope.row)">新增物业</el-button>
+				<el-button size="small" type="warning"  v-if='scope.row.sysUserId!="" &&  scope.row.sysUserId !=null' @click="editAdmin(scope.$index,scope.row)">修改物业</el-button> -->
+                <el-button size="small" type="danger" @click="deleteRow(scope.$index, scope.row)">删除</el-button>
 				</template>
 			</el-table-column>
 		</el-table>

@@ -78,7 +78,7 @@
 	export default {
 		data() {
 			return {
-				sysName:'智能门禁管理平台',
+				sysName:'AI屏管理平台',
 				sysNo:'v1.0.0',
 				collapsed:false,
 				sysUserName: '',
@@ -102,6 +102,7 @@
 				this.sysUserName = response.data.userName;
 				sessionStorage.setItem("communityId",response.data.communityId);
 				sessionStorage.setItem("userId",response.data.id);
+				sessionStorage.setItem("loginName",response.data.loginName);
 				sessionStorage.setItem("code",response.data.code);
 				 this.sysUserAvatar = "";
 				 

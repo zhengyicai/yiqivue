@@ -42,10 +42,11 @@ let routes = [
             { path: '/room',component: resolve => require(['./views/desktop/Room.vue'], resolve), name: '房间管理' },
             { path: '/resident',component: resolve => require(['./views/desktop/Resident.vue'], resolve), name: '住户管理' },
             { path: '/equipmentRecord',component: resolve => require(['./views/desktop/EquipmentRecord.vue'], resolve), name: '设备开锁记录' },
+            { path: '/material',component: resolve => require(['./views/desktop/Material.vue'], resolve), name: '素材管理' },
             { path: '/equipment',component: resolve => require(['./views/desktop/Equipment.vue'], resolve), name: '设备管理' },
-            { path: '/firm',component: resolve => require(['./views/desktop/Firm.vue'], resolve), name: '厂商管理' },
+            { path: '/firm',component: resolve => require(['./views/desktop/Firm.vue'], resolve), name: '代理商管理' },
             // { path: '/work',component: resolve => require(['./views/desktop/Work.vue'], resolve), name: '工程商管理' },
-            { path: '/worklist',component: resolve => require(['./views/desktop/WorkList.vue'], resolve), name: '工程商管理列表' },
+            { path: '/worklist',component: resolve => require(['./views/desktop/WorkList.vue'], resolve), name: '用户管理列表' },
             { path: '/residentList',component: resolve => require(['./views/desktop/ResidentList.vue'], resolve), name: '用户管理列表' },
             { path: '/authlist',component: resolve => require(['./views/desktop/AuthList.vue'], resolve), name: '授权管理列表' },
             { path: '/lockRecord',component: resolve => require(['./views/desktop/LockRecord.vue'], resolve), name: '开锁记录管理' },
@@ -67,6 +68,8 @@ let routes = [
             { path: '/role',component: resolve => require(['./views/system/Role.vue'], resolve), name: '权限管理' },
             { path: '/updatePw',component: resolve => require(['./views/system/UpdatePw.vue'], resolve), name: '修改密码' },
             { path: '/userInfo',component: resolve => require(['./views/system/UserInfo.vue'], resolve), name: '账户管理' },
+            { path: '/userMessage',component: resolve => require(['./views/system/UserMessage.vue'], resolve), name: '基本信息' },
+            
             
         ]
     },

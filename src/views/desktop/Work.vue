@@ -12,7 +12,11 @@
 			</el-table-column>
 			<el-table-column prop="loginName" label="登录名" width="150" sortable>
 			</el-table-column>
+            <el-table-column prop="connect" label="联系人" width="250" sortable>
+			</el-table-column>
 			<el-table-column prop="mobile" label="手机号" width="250" sortable>
+			</el-table-column>
+            <el-table-column prop="address" label="联系地址" width="250" sortable>
 			</el-table-column>
             <el-table-column prop="code" label="厂商编号" width="150" sortable>
 			</el-table-column>
@@ -58,8 +62,8 @@
                     <el-form-item label="*密码">
                       <el-input v-bind:disabled="isEdit" v-model="subData.password"  placeholder="请输入密码"></el-input>
                     </el-form-item>
-                     <!-- <el-form-item label="*厂商编号">
-                      <el-input type="number" v-bind:disabled="isEdit" v-model="subData.code"  placeholder="请输入厂商编号"></el-input>
+                     <!-- <el-form-item label="*代理商编号">
+                      <el-input type="number" v-bind:disabled="isEdit" v-model="subData.code"  placeholder="请输入代理商编号"></el-input>
                     </el-form-item> -->
                      <el-form-item label="手机号">
                         <el-input v-model="subData.mobile"  placeholder="请输入手机号"></el-input>
@@ -231,7 +235,7 @@
               
               if(this.communityId ==''){
                   this.$message({
-                    message: "请选择厂商",
+                    message: "请选择代理商",
                     type: 'error'
                   });
               }

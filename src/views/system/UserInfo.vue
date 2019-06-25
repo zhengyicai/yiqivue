@@ -73,10 +73,10 @@
         <el-dialog   :title="formtitle" :visible.sync="dialogFormVisible" >
 			<el-form ref="subData" :model="subData" label-width="100px" @submit.prevent="onSubmit" style="margin:20px;">
                     <el-form-item label="*用户名">
-                      <el-input v-bind:disabled="isEdit" v-model="subData.userName"  placeholder="请输入用户名"></el-input>
+                      <el-input v-model="subData.userName"  placeholder="请输入用户名"></el-input>
                     </el-form-item>    
                     <el-form-item label="*登录名">
-                        <el-input v-model="subData.loginName"  placeholder="请输入登录名"></el-input>
+                        <el-input v-bind:disabled="isEdit" v-model="subData.loginName"  placeholder="请输入登录名"></el-input>
                     </el-form-item>
                     <el-form-item label="*密码">
                       <el-input v-bind:disabled="isEdit" v-model="subData.password"  placeholder="请输入密码"></el-input>

@@ -31,18 +31,23 @@
 		</el-col>
         
 		<el-table :data="datalist" highlight-current-row v-loading="listLoading" style="width: 100%;">
-		
-			
+
+			  <el-table-column prop="code" label="代理编号" width="120" sortable>
+			</el-table-column>
+          
 			<el-table-column prop="userName" label="用户名" width="150" sortable>
 			</el-table-column>
+            
 			<el-table-column prop="loginName" label="登录名" width="150" sortable>
 			</el-table-column>
-			<el-table-column prop="mobile" label="手机号" width="250" sortable>
+            <el-table-column prop="connect" label="联系人" width="150" sortable>
 			</el-table-column>
-            <el-table-column  label="厂商编号" width="250" sortable>
-                    <template slot-scope="scope">0x{{ scope.row.code.toString(16)}}({{ scope.row.code}})</template>
+			<el-table-column prop="mobile" label="手机号" width="150" sortable>
+			</el-table-column>
+            <el-table-column prop="address" label="联系地址" width="200" sortable>
+			</el-table-column>
 
-			</el-table-column>
+          
 			<el-table-column  label="创建时间" min-width="120">
 				<template slot-scope="scope">{{ scope.row.createTime | moment('YYYY-MM-DD') }}</template>
 			</el-table-column>
@@ -52,11 +57,11 @@
 				<template slot-scope="scope">{{ state(scope.row.state)}}</template>
 			</el-table-column>
 
-            <el-table-column prop="remark" label="备注" width="250" sortable>
+            <el-table-column prop="remark" label="备注" width="200" sortable>
 			</el-table-column>
 			
 			
-			<el-table-column label="操作" min-width="250">
+			<el-table-column label="操作" min-width="150">
 				<template scope="scope">
 				 <el-button size="small" type="primary"  @click="edit(scope.$index,scope.row)">编辑</el-button>
 			     <el-button size="small" type="danger" @click="deleteRow(scope.$index, scope.row)">删除</el-button>
@@ -88,8 +93,14 @@
                      <el-form-item label="*厂商编号">
                       <el-input type="number" v-bind:disabled="isEdit" v-model="subData.code"  placeholder="请输入厂商编号"></el-input>
                     </el-form-item>
+                    <el-form-item label="*联系人">
+                        <el-input v-model="subData.connect"  placeholder="请输入联系人"></el-input>
+                    </el-form-item>
                      <el-form-item label="手机号">
                         <el-input v-model="subData.mobile"  placeholder="请输入手机号"></el-input>
+                    </el-form-item>
+                    <el-form-item label="*联系地址">
+                        <el-input v-model="subData.address"  placeholder="请输入联系地址"></el-input>
                     </el-form-item>
                     <!-- <el-form-item label="状态">
                         <el-radio-group v-model="subData.roleId">
@@ -171,6 +182,8 @@
                 password: '1q2w3e',
                 mobile: '',
                 roleId: '',
+                connect: '',
+                address: '',
                 roleName: '',
                 state: '10',
                 code:'',
@@ -216,6 +229,24 @@
           if(this.subData.code=="" || this.subData.code == null){
             this.$message({
                 message:"厂商编号不能为空",
+                type: 'error'
+            });
+            return false;
+          }
+
+          
+          if(this.subData.connect=="" || this.subData.connect == null){
+            this.$message({
+                message:"联系人不能为空",
+                type: 'error'
+            });
+            return false;
+          }
+
+          
+          if(this.subData.address=="" || this.subData.address == null){
+            this.$message({
+                message:"联系地址不能为空",
                 type: 'error'
             });
             return false;
