@@ -3,41 +3,12 @@
 	 	<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
 			<el-form :inline="true">
 				<el-form-item style="width:300px">
-					<el-input v-model="equipmentNo"  @keyup.enter.native="query"  :placeholder="this.$t('localization.equipmentSearch')" style="width:300px"></el-input>
+					<el-input v-model="equipmentNo"  @keyup.enter.native="query"  placeholder="请输入设备[编号|名称]" style="width:300px"></el-input>
 				</el-form-item>
 
-                <!-- 
-
-                    createTime:"创建时间",
-                    state:"状态",
-                    remark:"备注",
-                    complete:"操作",
-                    update:"编辑",
-                    delete:"删除",
-                    select："查询",
-
-                    equipmentSearch: "请输入设备[编号|名称]",
-                    equipmentType: "请选择展示类型",
-                    equipmentAll: "全部",
-                    
-                    equipmentNo:"设备编号",
-                    equipmentName1:"设备名称",
-                    equipmentName:"显示格式",
-                    equipmentAgentUserName:"代理商",
-                    equipmentUserName:"用户",
-                    equipmentAuth:"绑定素材",
-
-
-
-                
-                
-                
-                
-                 -->
-
                 <el-form-item style="width:200px">
-					<el-select  v-model="type" :placeholder="this.$t('localization.equipmentType')">
-                            <el-option value="" label="">{{this.$t('localization.equipmentAll')}}</el-option>
+					<el-select  v-model="type" placeholder="请选择展示类型">
+                            <el-option value="" label="">全部</el-option>
                              <el-option
                                         v-for="item in options"
                                         :key="item.value"
@@ -52,7 +23,7 @@
 
                  
 				<el-form-item  >
-					<el-button type="primary" v-on:click="query">{{this.$t('localization.select')}}</el-button>
+					<el-button type="primary" v-on:click="query">查询</el-button>
 				</el-form-item>
                 <!-- <el-form-item  >
 					<el-button type="success" v-on:click="query">刷新</el-button>
@@ -68,47 +39,53 @@
 					<el-button type="primary" @click="add()">新增</el-button>
 				</el-form-item>
 			</el-form>
-		</el-col> -->
-      
+		</el-col>
+       -->
         
 		<el-table :data="datalist" highlight-current-row v-loading="listLoading" style="width: 100%;">
 		
-			<el-table-column prop="equipmentNo" :label="this.$t('localization.equipmentNo')" width="150" sortable>
+			<el-table-column prop="equipmentNo" label="设备编号" width="150" sortable>
                 
 			</el-table-column>
-			<el-table-column prop="equipmentName1" :label="this.$t('localization.equipmentName1')" width="150" sortable>
+			<el-table-column prop="equipmentName1" label="设备名称" width="150" sortable>
 			</el-table-column>
-            <el-table-column prop="equipmentName" :label="this.$t('localization.equipmentName')" width="200" sortable>
+            <el-table-column prop="equipmentName" label="显示格式" width="200" sortable>
                 <template slot-scope="scope">{{ showType(scope.row.type)}}</template>
 			</el-table-column>
-        
-            <el-table-column  :label="this.$t('localization.createTime')" width="170">
+            <!-- <el-table-column prop="fileUrl" label="文件地址" width="250" sortable>
+			</el-table-column> -->
+            <el-table-column  label="创建时间" width="170">
 				<template slot-scope="scope">{{ scope.row.createTime | moment('YYYY-MM-DD HH:mm:ss') }}</template>
 			</el-table-column>
-            <el-table-column  :label="this.$t('localization.state')" width="170">
+            <el-table-column  label="状态" width="170">
 				<template slot-scope="scope">{{ state(scope.row.state)}}</template>
 			</el-table-column>
-			 <el-table-column  :label="this.$t('localization.remark')" width="200">
-				<template slot-scope="scope">{{ state(scope.row.remark)}}</template>
+			<el-table-column  label="备注" width="200">
+				<template slot-scope="scope">{{ scope.row.remark}}</template>
             </el-table-column>
-            
-            <el-table-column  :label="this.$t('localization.equipmentAgentUserName')" width="120" v-if="adminUser ==1">
+            <el-table-column  label="代理商名称" width="200">
 				<template slot-scope="scope">{{scope.row.agentUserName}}</template>
             </el-table-column>
-            <el-table-column  :label="this.$t('localization.equipmentUserName')" width="120" v-if="adminUser ==1">
-				<template slot-scope="scope">{{scope.row.userName}}</template>
+            <el-table-column  label="用户名称" width="200">
+				<template slot-scope="scope">{{scope.row.userId =="426cac38e7084c9e9c2cfab41b5db10a"?"":scope.row.userName}}</template>
 			</el-table-column>
 			
-            <el-table-column :label="this.$t('localization.complete')" min-width="160">
+            <el-table-column label="操作" min-width="160">
 				<template scope="scope">
-		        <el-button size="small" v-if="adminUser!=1" type="primary"  @click="addFile(scope.$index,scope.row)">{{equipmentAuth}}</el-button>
-                <el-button size="small"  v-if="adminUser!=1" type="primary"  @click="update(scope.$index,scope.row)">{{updateBtn}}</el-button>
-                <el-button size="small" type="danger"  @click="deleteRow(scope.$index, scope.row)">{{deleteBtn}}</el-button>
-         
+				<!-- 
+				<el-button size="small" type="primary"  v-if='scope.row.sysUserId=="" ||  scope.row.sysUserId ==null' @click="addAdmin(scope.$index,scope.row)">新增物业</el-button>
+				<el-button size="small" type="warning"  v-if='scope.row.sysUserId!="" ||  scope.row.sysUserId !=null' @click="editAdmin(scope.$index,scope.row)">修改物业</el-button> -->
+                <!-- <el-button size="small" type="primary"  @click="addFile(scope.$index,scope.row)">绑定素材</el-button> -->
+                <el-button size="small" type="primary"  @click="update(scope.$index,scope.row)">绑定用户</el-button>
+                <!-- <el-button size="small" type="danger"  @click="deleteRow(scope.$index, scope.row)">删除</el-button> -->
+                <!-- <el-button size="small" type="warning" @click="updateRow(scope.$index, scope.row)">替换</el-button> -->
 				</template>
 			</el-table-column>
 
-         
+            <!-- <el-table-column prop="fileUrl" label="文件地址" width="200" sortable>
+                <template slot-scope="scope"><img :src="scope.row.fileUrl"></template>
+			</el-table-column> -->
+            
 		
 		</el-table>
 
@@ -131,76 +108,43 @@
 					    </el-select>
                     </el-form-item>  -->
 
-
-
-                    <!-- 
-                            equipmentNoPlease:"请输入设备编号",
-                            equipmentName1Please:"请输入设备名称",
-                            equipmentTypePlease:"请选择展示类型",
-                            equipmentRemarkPlease:"请输入备注",
-                            equipmentImage:"图片",
-                            equipmentVideo:"视频",
-                            equipmentImageL:"左图片",
-                            equipmentImageR:"右图片",
-
-
-
-                     -->
-
-                    <el-form-item :label="this.$t('localization.equipmentNo')">
-                        <el-input name="equipmentNo"  v-model="subData.equipmentNo"  :placeholder="this.$t('localization.equipmentNoPlease')"></el-input>
-                    </el-form-item>
-                    <el-form-item :label="this.$t('localization.equipmentName1')">
-                        <el-input name="equipmentName"  v-model="subData.equipmentName1"  :placeholder="this.$t('localization.equipmentName1Please')"></el-input>
-                    </el-form-item>
-                    <el-form-item :label="this.$t('localization.equipmentName')">
+                
+                    <el-form-item label="展示用户">
                      
-                        <el-select  v-model="subData.type" :placeholder="this.$t('localization.equipmentTypePlease')">
+                        <el-select  v-model="subData.userId"  @change="selectModel($event)" placeholder="请选择用户">
                              <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value"
-                                        :disabled="item.disabled">
+                                        v-for="item in freelist"
+                                        :key="item.id"
+                                        :label="item.userName"
+                                        :value="item.id"
+                                       >
                                 </el-option>
                         </el-select>
                      </el-form-item>   
 
-                    <el-form-item :label="this.$t('localization.state')">
-                        <el-radio-group  name="state" v-model="subData.state">
-                            <el-radio label="10">{{this.$t('localization.ok')}}</el-radio>
-                            <el-radio label="20">{{this.$t('localization.disok')}}</el-radio>
-                        </el-radio-group>
-                    </el-form-item>
-        
-                    <el-form-item :label="this.$t('localization.remark')">
-                        <el-input name="remark"  v-model="subData.remark"  :placeholder="this.$t('localization.equipmentRemarkPlease')"></el-input>
-                    </el-form-item>
-
-
 			</el-form>	
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="dialogFormVisible = false">{{this.$t('localization.false')}}</el-button>
-				<el-button type="primary" @click="open()">{{this.$t('localization.true')}}</el-button>
+				<el-button @click="dialogFormVisible = false">取 消</el-button>
+				<el-button type="primary" @click="open()">确 定</el-button>
 			</div>
         </el-dialog>
 
 
 
-         <el-dialog   :title="equipmentAuth" :visible.sync="dialogFormTypeVisible" >
+         <el-dialog   title="绑定素材" :visible.sync="dialogFormTypeVisible" >
              <!-- {{rows.type}} -->
 			<el-form  >
                 <el-col :span="24" v-if="allFileListLeft2.length ==0">    
                   <el-col :span="12">
-                  {{allFileListLeft.length>0?this.$t('localization.equipmentImage'):""}}
+                  {{allFileListLeft.length>0?"图片":""}}
                   <el-checkbox-group v-model="checkList1" >
-                        <el-checkbox style="margin-left:0px;height:50px" v-for="item in allFileListLeft" :label="item.id" :key="item.id"><img :src="files+item.fileUrl" style="height:30%; width:30%"><span>{{item.remark}}</span></el-checkbox>
+                        <el-checkbox style="margin-left:0px;height:50px" v-for="item in allFileListLeft" :label="item.id" :key="item.id"><img :src="files+item.fileUrl" style="height:30%; width:30%"></el-checkbox>
                    </el-checkbox-group>  
                   </el-col> 
                   <el-col :span="12">
-                  {{allFileListRight.length>0?this.$t('localization.equipmentVideo'):""}}
+                  {{allFileListRight.length>0?"视频":""}}
                   <el-checkbox-group v-model="checkList2" >
-                        <el-checkbox style="margin-left:0px;height:50px" v-for="item in allFileListRight" :label="item.id" :key="item.id"><video  :src="files+item.fileUrl" style="height:30%; width:30%"/><span>{{item.remark}}</span></el-checkbox>
+                        <el-checkbox style="margin-left:0px;height:50px" v-for="item in allFileListRight" :label="item.id" :key="item.id"><video  :src="files+item.fileUrl" style="height:30%; width:30%"/></el-checkbox>
                    </el-checkbox-group>  
                   </el-col> 
                 </el-col>
@@ -208,15 +152,15 @@
 
                 <el-col :span="24" v-if="allFileListLeft2.length>0">    
                   <el-col :span="12">
-                  {{allFileListLeft1.length>0?this.$t('localization.equipmentImageL'):""}}
+                  {{allFileListLeft1.length>0?"左图片":""}}
                   <el-checkbox-group v-model="checkList1" >
-                        <el-checkbox style="margin-left:0px;height:50px" v-for="item in allFileListLeft1" :label="item.id" :key="item.id"><img :src="files+item.fileUrl" style="height:30%; width:30%"><span>{{item.remark}}</span></el-checkbox>
+                        <el-checkbox style="margin-left:0px;height:50px" v-for="item in allFileListLeft1" :label="item.id" :key="item.id"><img :src="files+item.fileUrl" style="height:30%; width:30%"></el-checkbox>
                    </el-checkbox-group>  
                   </el-col> 
                   <el-col :span="12">
-                  {{allFileListLeft2.length>0?this.$t('localization.equipmentImageR'):""}}
+                  {{allFileListLeft2.length>0?"右图片":""}}
                   <el-checkbox-group v-model="checkList2" >
-                        <el-checkbox style="margin-left:0px;height:50px" v-for="item in allFileListLeft2" :label="item.id" :key="item.id"><img :src="files+item.fileUrl" style="height:30%; width:30%"><span>{{item.remark}}</span></el-checkbox>
+                        <el-checkbox style="margin-left:0px;height:50px" v-for="item in allFileListLeft2" :label="item.id" :key="item.id"><img :src="files+item.fileUrl" style="height:30%; width:30%"></el-checkbox>
                    </el-checkbox-group>  
                   </el-col> 
                 </el-col>    
@@ -226,8 +170,8 @@
 
 			</el-form>	
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="dialogFormTypeVisible = false">{{this.$t('localization.false')}}</el-button>
-				<el-button type="primary" @click="open1()">{{this.$t('localization.true')}}</el-button>
+				<el-button @click="dialogFormTypeVisible = false">取 消</el-button>
+				<el-button type="primary" @click="open1()">确 定</el-button>
 			</div>
         </el-dialog>
 
@@ -319,17 +263,10 @@
 
       },
 
-      /**
-       *  equipmentdeletePlease:"确认删除, 是否继续",
-       *  equipmentdeleteTitle:"提示", 
-       *   equipmentdeleteOver:"已取消删除",
-       *   equipmentOnlineUser:"当前账户还没有上传素材",
-       */
-
        deleteRow(index, rows) {
-       this.$confirm(this.$t('localization.equipmentdeletePlease'), this.$t('localization.equipmentdeleteTitle'), {
-            confirmButtonText: this.$t('localization.true'),
-            cancelButtonText: this.$t('localization.false'),
+       this.$confirm('确认删除, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
             type: 'warning'
             }).then(() => {
            
@@ -341,14 +278,14 @@
 						//this.logining = false; 
                 if(response.code=='0000'){
                     this.$message({
-                        message: this.$t('localization.compluteSuccess'),
+                        message: response.message,
                         type: 'success'
                     });  
                     this.dialogFormVisible = false;
                     this.loadData();
                 }else{
                     this.$message({
-                        message: this.$t('localization.compluteError'),
+                        message: response.message,
                         type: 'error'
                     });
                 }
@@ -364,17 +301,46 @@
             }).catch(() => {
             this.$message({
                 type: 'info',
-                message: this.$t('localization.equipmentdeleteOver')
+                message: '已取消删除'
             });          
             });
       },
 
 
       update(index, rows) {
-        this.formtitle = this.updateBtn;
+        this.formtitle = "编辑";
         this.dialogFormVisible = true;
         this.show = "2";
-        this.subData =  rows;    
+
+        if(rows.userId=="426cac38e7084c9e9c2cfab41b5db10a"){
+            this.subData =  rows;  
+            this.subData.userId = "";     
+        }else{
+            this.subData =  rows;  
+        }
+        
+        RequestGet("/user/findAllWorkChild",{parentId:sessionStorage.getItem("userId")}).then(response => {
+						if(response.code == '0000'){
+                                 
+                                 this.freelist = response.data;
+                                          
+                                 for(var i= 0 ;i<this.freelist.length;i++){
+                                    
+                                    // if(this.datalist[i].code != null && this.datalist[i].code != "" ){
+                                    //     this.datalist[i].code = this.datalist[i].code.toString(16);
+                                    // }
+                                    
+                                 }   
+                                 
+                                 
+								 this.total = response.page.totalCount; 
+								 this.totalsize  = response.page.pageSize;
+						 }
+					
+		}).catch(error => {
+						 this.$router.push({ path: '/login' });
+						
+		})  
       
             
       },
@@ -397,7 +363,7 @@
                             this.allFileList = response.data;
                             if(this.allFileList.length<=0){
                                 this.$message({
-                                    message: this.$t('localization.equipmentOnlineUser'),
+                                    message: '当前账户还没有上传素材',
                                     type: 'success'
                                 });    
                                 return;
@@ -541,23 +507,11 @@
 
       open1(){
 
-
-            /**
-             *  equipmentdImagePlease:"请绑定图片素材",
-             *  equipmentdVideoOnePlease: "绑定视频素材只能选一个",
-             *  equipmentdNoPlease:"设备编号不能为空",
-             *  equipmentdName1Please:"设备名称不能为空"
-             *  
-             * 
-             * 
-             * 
-             * 
-             */
             
 
            if(this.allFileListLeft.length>0 && this.checkList1.length ==0){
                 this.$message({
-                    message: this.$t('localization.equipmentdImagePlease'),
+                    message: "请绑定图片素材",
                     type: 'error'
                 });  
                 return;
@@ -565,7 +519,7 @@
 
            if(this.allFileListRight.length>0 && this.checkList2.length!=1){
                 this.$message({
-                    message: this.$t('localization.equipmentdVideoOnePlease'),
+                    message: "绑定视频素材只能选一个",
                     type: 'error'
                 });  
                 return;
@@ -573,7 +527,7 @@
 
            if(this.allFileListLeft2.length>0 && this.checkList1.length ==0){
                 this.$message({
-                    message: this.$t('localization.equipmentdImagePlease'),
+                    message: "请绑定图片素材",
                     type: 'error'
                 });  
                 return;
@@ -581,7 +535,7 @@
 
             if(this.allFileListLeft2.length>0 && this.checkList2.length ==0){
                 this.$message({
-                    message: this.$t('localization.equipmentdImagePlease'),
+                    message: "请绑定图片素材",
                     type: 'error'
                 });  
                 return;
@@ -607,14 +561,14 @@
 				
                 if(response.code=='0000'){
                     this.$message({
-                        message: this.$t('localization.compluteSuccess'),
+                        message: response.message,
                         type: 'success'
                     });  
                     this.dialogFormTypeVisible = false;
                 
                 }else{
                     this.$message({
-                        message: this.$t('localization.compluteError'),
+                        message: response.message,
                         type: 'error'
                     });
                 }
@@ -626,6 +580,15 @@
 
        
       },
+      selectModel(id){
+            let obj = {};
+            obj = this.freelist.find((item)=>{//model就是上面的数据源
+                return item.id === id;//筛选出匹配数据
+            });
+            
+            this.subData.userName = obj.userName;
+            //console.log("modelName"+obj.userName)
+        },
      
       open(){
         
@@ -636,7 +599,14 @@
         // $("#formid").attr("action",$base_path+"/file/upload");
 		// $("#formid").submit();
 
-        this.validate();
+       // this.validate();
+       if(this.subData.userId=="" || this.subData.userId == null){
+            this.$message({
+                type: 'error',
+                message: '用户名不能为空'
+            });         
+            return false;
+        }
 
 
         if(this.show =="1"){
@@ -644,7 +614,7 @@
             RequestPost("/sysEquipment/addFile",this.subData).then(response => {
                 if(response.code == '0000'){
                         this.$message({
-                            message: this.$t('localization.compluteSuccess'),
+                            message: response.message,
                             type: 'success'
                         });  
                         this.dialogFormVisible = false;
@@ -652,7 +622,7 @@
                         
                 }else{
                     this.$message({
-                        message: this.$t('localization.compluteError'),
+                        message: response.message,
                         type: 'error'
                     });
 
@@ -665,19 +635,20 @@
 
         }else{
              //删除功能暂时不开放
+             //this.subData.agentUserName = sessionStorage.getItem("loginName");
             RequestPost("/sysEquipment/update",this.subData).then(response => {
                         
                 //this.logining = false; 
                 if(response.code=='0000'){
                     this.$message({
-                        message: this.$t('localization.compluteSuccess'),
+                        message: response.message,
                         type: 'success'
                     });  
                     this.dialogFormVisible = false;
                     this.loadData();
                 }else{
                     this.$message({
-                        message: this.$t('localization.compluteError'),
+                        message: response.message,
                         type: 'error'
                     });
                 }
@@ -696,15 +667,12 @@
 
 	
 	loadData(){
-        if(sessionStorage.getItem("loginName") == 'admin'){
-            this.page.userName = "";
-            this.adminUser = 1;
-        }else{
-            this.page.userName = sessionStorage.getItem("loginName");
-            this.adminUser = 0;
-        }
+
+        //this.page.userName = sessionStorage.getItem("loginName");
         
+
         this.page.state = '10';
+        this.page.agentUserId = sessionStorage.getItem("userId");
         this.files = fileUrls;    
         this.page.equipmentNo = this.equipmentNo;
             this.page.type = this.type;
@@ -731,7 +699,7 @@
         if(this.subData.equipmentNo.trim()=="" || this.subData.equipmentNo == null){
             this.$message({
                 type: 'error',
-                message: this.$t('localization.equipmentdNoPlease')
+                message: '设备编号不能为空'
             });         
             return false;
         }
@@ -739,7 +707,7 @@
         if(this.subData.equipmentName1.trim()=="" || this.subData.equipmentName1 == null){
             this.$message({
                 type: 'error',
-                message: this.$t('localization.equipmentdName1Please')
+                message: '设备名称不能为空'
             });         
             return false;
         }
@@ -790,6 +758,7 @@
         datalist:[],
         formtitle:"",
         fileList: [],
+        freelist:[],
         paths:"",
         files:"",
         equipmentNo:"",
@@ -797,10 +766,11 @@
         dialogFormVisible:false,
         dialogFormTypeVisible:false,
         equipmentId:"", //当前设备编号
-        adminUser:0,  //是否为admin      
+      
         subData:{
-            type:""
-            
+            type:"",
+            userId:"",
+            userName:""
         },
 
          checkList1: [],  //图片
@@ -817,29 +787,26 @@
 
         options: [{
           value: '10',
-          label: this.$t("localization.equipmentShow10"),
+          label: '图片全屏'
         }, {
           value: '20',
-          label: this.$t("localization.equipmentShow20"),
+          label: '视频全屏',
         }, {
           value: '30',
-          label: this.$t("localization.equipmentShow30"),
+          label: '图片视频1:2'
         }, {
           value: '40',
-          label: this.$t("localization.equipmentShow40"),
+          label: '视频图片2:1'
         }, {
           value: '50',
-          label: this.$t("localization.equipmentShow50"),
+          label: '图片1:2'
         },{
           value: '60',
-          label: this.$t("localization.equipmentShow60"),
+          label: '图片2:1'
         },{
           value: '70',
-          label: this.$t("localization.equipmentShow70"),
+          label: '图片1:1'
         }],
-        updateBtn:this.$t("localization.update"),
-        deleteBtn:this.$t("localization.delete"),
-        equipmentAuth:this.$t("localization.equipmentAuth")
 
       };
     }

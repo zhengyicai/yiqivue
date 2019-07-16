@@ -10,13 +10,21 @@
 					<i class="fa fa-align-justify"></i>
 				</div> -->
 			</el-col>
+
+
+			<!-- 
+				myMessage:"我的消息",
+				myPwd:"修改密码",
+				myOut:"退出登录",
+				outTitle:"确认退出吗?"
+			 -->
 			<el-col :span="4" class="userinfo">
 				<el-dropdown trigger="hover">
 					<span class="el-dropdown-link userinfo-inner"><img src="https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png" /> {{sysUserName}}</span>
 					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item>我的消息</el-dropdown-item>
-						<el-dropdown-item @click.native="updatePwd">修改密码</el-dropdown-item>
-						<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
+						<el-dropdown-item>{{this.$t('localization.myMessage')}}</el-dropdown-item>
+						<el-dropdown-item @click.native="updatePwd">{{this.$t('localization.myPwd')}}</el-dropdown-item>
+						<el-dropdown-item divided @click.native="logout">{{this.$t('localization.myOut')}}</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
 			</el-col>
@@ -54,12 +62,13 @@
 			<section class="content-container">
 				<div class="grid-content bg-purple-light">
 					<el-col :span="24" class="breadcrumb-container">
-						<strong class="title">{{$route.name}}</strong>
-						<el-breadcrumb separator="/" class="breadcrumb-inner">
+						<strong class="title">{{this.$t($route.name)}}</strong>
+						<!-- 显示右边tab，  暂时隐藏-->
+						<!-- <el-breadcrumb separator="/" class="breadcrumb-inner">
 							<el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
 								{{ item.name }}
 							</el-breadcrumb-item>
-						</el-breadcrumb>
+						</el-breadcrumb> -->
 					</el-col>
 					<el-col :span="24" class="content-wrapper">
 						<transition name="fade" mode="out-in">
@@ -78,7 +87,7 @@
 	export default {
 		data() {
 			return {
-				sysName:'AI屏管理平台',
+				sysName: this.$t("localization.role1"),
 				sysNo:'v1.0.0',
 				collapsed:false,
 				sysUserName: '',
@@ -112,6 +121,80 @@
 
 				 RequestGet("/main/findVueMenus",person).then(response1 => {
 						this.roleData = response1.data;
+
+
+						// role1:"首页",
+						// role2:"账户管理", 
+						// role3:"设备管理",
+						// role4:"素材管理",
+						// role5:"系统菜单",
+						// role6:"系统管理",
+						// role7:"用户管理列表",
+						// role8:"用户管理",
+						// role9:"添加设备",
+						// role10:"权限管理",
+						// role11:"我的桌面",
+						// role12:"基本信息",
+						// role13:"发货管理",
+						// role14:"参数设置",
+						// role15:"修改密码",
+						// role16:"代理商管理",
+						// role17:"代理商发货管理"	
+						for(var j =0;j<this.roleData.length;j++){
+
+							if(this.roleData[j].resName =="我的桌面"){
+								this.roleData[j].resName = this.$t("localization.role11");
+							
+							}else	if(this.roleData[j].resName =="系统管理"){
+								this.roleData[j].resName = this.$t("localization.role6");
+							}
+
+							var obj1 = this.roleData[j].children;
+							for(var i =0;i<this.roleData[j].children.length;i++){
+								if(obj1[i].resName =="首页"){
+									obj1[i].resName = this.$t("localization.role1");
+								}else if(obj1[i].resName =="账户管理"){
+									obj1[i].resName = this.$t("localization.role2");
+								}else if(obj1[i].resName =="设备管理"){
+									obj1[i].resName = this.$t("localization.role3");
+								}else if(obj1[i].resName =="素材管理"){
+									obj1[i].resName = this.$t("localization.role4");
+								}else if(obj1[i].resName =="系统菜单"){
+									this.roleData[i].resName = this.$t("localization.role5");
+								}else if(obj1[i].resName =="系统管理"){
+									obj1[i].resName = this.$t("localization.role6");
+								}else if(obj1[i].resName =="用户管理列表"){
+									obj1[i].resName = this.$t("localization.role7");
+								}else if(obj1[i].resName =="用户管理"){
+									obj1[i].resName = this.$t("localization.role8");
+								}else if(obj1[i].resName =="添加设备"){
+									obj1[i].resName = this.$t("localization.role9");
+								}else if(obj1[i].resName =="权限管理"){
+									obj1[i].resName = this.$t("localization.role10");
+								}else if(obj1[i].resName =="我的桌面"){
+									obj1[i].resName = this.$t("localization.role11");
+								}else if(obj1[i].resName =="基本信息"){
+									obj1[i].resName = this.$t("localization.role12");
+								}else if(obj1[i].resName =="发货管理"){
+									obj1[i].resName = this.$t("localization.role13");
+								}else if(obj1[i].resName =="参数设置"){
+									obj1[i].resName = this.$t("localization.role14");
+								}else if(obj1[i].resName =="修改密码"){
+									obj1[i].resName = this.$t("localization.role15");
+								}else if(obj1[i].resName =="代理商管理"){
+									obj1[i].resName = this.$t("localization.role16");
+								}else if(obj1[i].resName =="代理商发货管理"){
+									obj1[i].resName = this.$t("localization.role17");
+								}
+
+						}
+
+						}
+
+						
+
+
+
 					
 					}).catch(error => {
 						 this.$router.push({ path: '/login' });
@@ -157,7 +240,7 @@
 			//退出登录
 			logout: function () {
 				var _this = this;
-				this.$confirm('确认退出吗?', '提示', {
+				this.$confirm(this.$t('localization.outTitle'), this.$t('localization.equipmentdeleteTitle'), {
 					//type: 'warning'
 				}).then(() => {
 					sessionStorage.removeItem('user');

@@ -10,6 +10,7 @@ import Page5 from './views/nav2/Page5.vue'
 import Page6 from './views/nav3/Page6.vue'
 import echarts from './views/charts/echarts.vue'
 import TableTest from './views/nav1/TableTest.vue'
+
 let routes = [
     {
         path: '/login',
@@ -35,25 +36,52 @@ let routes = [
         component: Home,
         name: '我的桌面',
         iconCls: 'fa fa-id-card-o',//图标样式class
+
+
+
+
+    //     role1:"首页",
+    //  role2:"账户管理", 
+    //  role3:"设备管理",
+    //  role4:"素材管理",
+    //  role5:"系统菜单",
+    //  role6:"系统管理",
+    //  role7:"用户管理列表",
+    //  role8:"用户管理",
+    //  role9:"添加设备",
+    //  role10:"权限管理",
+    //  role11:"我的桌面",
+    //  role12:"基本信息",
+    //  role13:"发货管理",
+    //  role14:"参数设置",
+    //  role15:"修改密码",
+    //  role16:"代理商管理",
+    //  role17:"代理商发货管理"
+
+
+
         children: [
-            { path: '/homeIndex',component: resolve => require(['./views/desktop/HomeIndex.vue'], resolve),  name: '主页' },
-            { path: '/community',component: resolve => require(['./views/desktop/Community.vue'], resolve), name: '小区管理' },
-            { path: '/building',component: resolve => require(['./views/desktop/Building.vue'], resolve), name: '楼栋管理' },
-            { path: '/room',component: resolve => require(['./views/desktop/Room.vue'], resolve), name: '房间管理' },
-            { path: '/resident',component: resolve => require(['./views/desktop/Resident.vue'], resolve), name: '住户管理' },
-            { path: '/equipmentRecord',component: resolve => require(['./views/desktop/EquipmentRecord.vue'], resolve), name: '设备开锁记录' },
-            { path: '/material',component: resolve => require(['./views/desktop/Material.vue'], resolve), name: '素材管理' },
-            { path: '/equipment',component: resolve => require(['./views/desktop/Equipment.vue'], resolve), name: '设备管理' },
-            { path: '/firm',component: resolve => require(['./views/desktop/Firm.vue'], resolve), name: '代理商管理' },
+            { path: '/homeIndex',component: resolve => require(['./views/desktop/HomeIndex.vue'], resolve),  name: "localization.role1" },
+            { path: '/community',component: resolve => require(['./views/desktop/Community.vue'], resolve), name: 'localization.logintitle' },
+            { path: '/building',component: resolve => require(['./views/desktop/Building.vue'], resolve), name: 'localization.logintitle' },
+            { path: '/room',component: resolve => require(['./views/desktop/Room.vue'], resolve), name: 'localization.logintitle' },
+            { path: '/resident',component: resolve => require(['./views/desktop/Resident.vue'], resolve), name: 'localization.logintitle' },
+            { path: '/equipmentRecord',component: resolve => require(['./views/desktop/EquipmentRecord.vue'], resolve), name: 'localization.logintitle' },
+            { path: '/material',component: resolve => require(['./views/desktop/Material.vue'], resolve), name: 'localization.role4' },
+            { path: '/equipment',component: resolve => require(['./views/desktop/Equipment.vue'], resolve), name: 'localization.role3' },
+            { path: '/equipmentAdd',component: resolve => require(['./views/desktop/EquipmentAdd.vue'], resolve), name: 'localization.role9' },
+            { path: '/equipmentAuth',component: resolve => require(['./views/desktop/EquipmentAuth.vue'], resolve), name: 'localization.role13' },
+            { path: '/equipmentAgeetAuth',component: resolve => require(['./views/desktop/EquipmentAgeetAuth.vue'], resolve), name: 'localization.role17' },
+            { path: '/firm',component: resolve => require(['./views/desktop/Firm.vue'], resolve), name: 'localization.role16' },
             // { path: '/work',component: resolve => require(['./views/desktop/Work.vue'], resolve), name: '工程商管理' },
-            { path: '/worklist',component: resolve => require(['./views/desktop/WorkList.vue'], resolve), name: '用户管理列表' },
-            { path: '/residentList',component: resolve => require(['./views/desktop/ResidentList.vue'], resolve), name: '用户管理列表' },
-            { path: '/authlist',component: resolve => require(['./views/desktop/AuthList.vue'], resolve), name: '授权管理列表' },
-            { path: '/lockRecord',component: resolve => require(['./views/desktop/LockRecord.vue'], resolve), name: '开锁记录管理' },
-            { path: '/adminCard',component: resolve => require(['./views/desktop/AdminCard.vue'], resolve), name: '物业房卡管理' },
-            { path: '/tableTest', component: TableTest, name: '列表测试' },
-            { path: '/form', component: Form, name: 'Form' },
-            { path: '/user', component: user, name: '列表' },
+            { path: '/worklist',component: resolve => require(['./views/desktop/WorkList.vue'], resolve), name: 'localization.role7' },
+            { path: '/residentList',component: resolve => require(['./views/desktop/ResidentList.vue'], resolve), name: 'localization.role7' },
+            { path: '/authlist',component: resolve => require(['./views/desktop/AuthList.vue'], resolve), name: 'localization.logintitle' },
+            { path: '/lockRecord',component: resolve => require(['./views/desktop/LockRecord.vue'], resolve), name: 'localization.logintitle' },
+            { path: '/adminCard',component: resolve => require(['./views/desktop/AdminCard.vue'], resolve), name: 'localization.logintitle' },
+            { path: '/tableTest', component: TableTest, name: 'localization.logintitle' },
+            { path: '/form', component: Form, name: 'localization.logintitle' },
+            { path: '/user', component: user, name: 'localization.logintitle' },
         ]
     },
     {
@@ -62,13 +90,13 @@ let routes = [
         name: '系统管理',
         iconCls: 'fa fa-id-card-o',//图标样式class
         children: [
-            { path: '/message',component: resolve => require(['./views/system/Message.vue'], resolve),  name: '消息管理' },
-            { path: '/notice',component: resolve => require(['./views/system/Notice.vue'], resolve), name: '公告管理' },
-            { path: '/parameter',component: resolve => require(['./views/system/Parameter.vue'], resolve), name: '参数设置' },
-            { path: '/role',component: resolve => require(['./views/system/Role.vue'], resolve), name: '权限管理' },
-            { path: '/updatePw',component: resolve => require(['./views/system/UpdatePw.vue'], resolve), name: '修改密码' },
-            { path: '/userInfo',component: resolve => require(['./views/system/UserInfo.vue'], resolve), name: '账户管理' },
-            { path: '/userMessage',component: resolve => require(['./views/system/UserMessage.vue'], resolve), name: '基本信息' },
+            { path: '/message',component: resolve => require(['./views/system/Message.vue'], resolve),  name: 'localization.logintitle' },
+            { path: '/notice',component: resolve => require(['./views/system/Notice.vue'], resolve), name: 'localization.logintitle' },
+            { path: '/parameter',component: resolve => require(['./views/system/Parameter.vue'], resolve), name: 'localization.role14' },
+            { path: '/role',component: resolve => require(['./views/system/Role.vue'], resolve), name: 'localization.role10' },
+            { path: '/updatePw',component: resolve => require(['./views/system/UpdatePw.vue'], resolve), name: 'localization.role15' },
+            { path: '/userInfo',component: resolve => require(['./views/system/UserInfo.vue'], resolve), name: 'localization.role2' },
+            { path: '/userMessage',component: resolve => require(['./views/system/UserMessage.vue'], resolve), name: 'localization.role12' },
             
             
         ]

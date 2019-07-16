@@ -1,27 +1,48 @@
 <template> 
  <div class="block">   
 	 	
-      
+      <!-- 
+          updateBasicMessage:"修改用户基本信息",
+          userName1:"*用户名",
+          loginName1:"*登录名",
+          connent:"*联系人",
+          mobile:"*手机号",
+          address:"*联系地址",
+          userName1Please:"请输入用户名",
+          loginName1Please:"请输入登录名",
+          connentPlease:"请输入联系人",
+          mobilePlease:"请输入手机号",
+          addressPlease:"请输入联系地址",
+          userName1Null:"用户名不能为空",
+          loginName1Null:"登录名不能为空",
+          connentNull:"联系人不能为空",
+          mobileNull:"手机号不能为空",
+          addressNull:"联系地址不能为空",
+          basicUserTitle:"确认修改, 是否继续?"
 
-         <el-card header="修改用户基本信息" style="width:400px;margin:auto auto;margin-top:50px">
-			<el-form ref="subData" :model="subData" label-width="100px" @submit.prevent="onSubmit" style="margin:20px;">
-                    <el-form-item label="*用户名">
-                      <el-input  v-model="subData.userName"  placeholder="请输入用户名"></el-input>
+
+
+       -->
+
+         <el-card :header="this.$t('localization.updateBasicMessage')" style="width:400px;margin:auto auto;margin-top:50px">
+			<el-form ref="subData" :model="subData" label-width="150px" @submit.prevent="onSubmit" style="margin:20px;">
+                    <el-form-item :label="this.$t('localization.userName1')">
+                      <el-input  v-model="subData.userName"  :placeholder="this.$t('localization.userName1Please')"></el-input>
                     </el-form-item>    
-                    <el-form-item label="*登录名">
-                        <el-input v-bind:disabled="true" v-model="subData.loginName"  placeholder="请输入登录名"></el-input>
+                    <el-form-item :label="this.$t('localization.loginName1')">
+                        <el-input v-bind:disabled="true" v-model="subData.loginName"  :placeholder="this.$t('localization.loginName1Please')"></el-input>
                     </el-form-item>
-                    <el-form-item label="*联系人">
-                      <el-input  v-model="subData.connect"  placeholder="请输入联系人"></el-input>
+                    <el-form-item :label="this.$t('localization.connent')">
+                      <el-input  v-model="subData.connect"  :placeholder="this.$t('localization.connentPlease')"></el-input>
                     </el-form-item>
-                    <el-form-item label="*手机号">
-                      <el-input  v-model="subData.mobile"  placeholder="请输入手机号"></el-input>
+                    <el-form-item :label="this.$t('localization.mobile')">
+                      <el-input  v-model="subData.mobile"  :placeholder="this.$t('localization.mobilePlease')"></el-input>
                     </el-form-item>
-                    <el-form-item label="*联系地址">
-                      <el-input  v-model="subData.address"  placeholder="请输入联系地址"></el-input>
+                    <el-form-item :label="this.$t('localization.address')">
+                      <el-input  v-model="subData.address"  :placeholder="this.$t('localization.addressPlease')"></el-input>
                     </el-form-item>
                      <el-form-item style="text-align:right" >
-                      <el-button type="primary" @click="UpdateRow()">确 定</el-button>
+                      <el-button type="primary" @click="UpdateRow()">{{this.$t('localization.true')}}</el-button>
                     </el-form-item>
                  
 			</el-form>	
@@ -70,14 +91,14 @@
       validate(){
         if(this.subData.userName.trim() =="" || this.subData.userName == null){
              this.$message({
-                message: "用户名不能为空",
+                message: this.$t('localization.userName1Null'),
                 type: 'error'
             });
             return false;
         }
         if(this.subData.loginName.trim() =="" || this.subData.loginName == null){
              this.$message({
-                message: "登录名不能为空",
+                message:  this.$t('localization.loginName1Null'),
                 type: 'error'
             });
             return false;
@@ -85,7 +106,7 @@
 
         if(this.subData.mobile.trim() =="" || this.subData.mobile == null){
              this.$message({
-                message: "手机号不能为空",
+                message: this.$t('localization.mobileNull'),
                 type: 'error'
             });
             return false;
@@ -93,14 +114,14 @@
        
         if(this.subData.connect.trim() =="" || this.subData.connect == null){
              this.$message({
-                message: "联系人不能为空",
+                message: this.$t('localization.connentNull'),
                 type: 'error'
             });
             return false;
         }
         if(this.subData.address.trim() =="" || this.subData.address == null){
              this.$message({
-                message: "联系地址不能为空",
+                message: this.$t('localization.addressNull'),
                 type: 'error'
             });
             return false;
@@ -111,9 +132,9 @@
       
      
 	  UpdateRow() {
-       this.$confirm('确认修改, 是否继续?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
+       this.$confirm(this.$t('localization.basicUserTitle'), this.$t('localization.equipmentdeleteTitle'), {
+            confirmButtonText: this.$t('localization.true'),
+            cancelButtonText: this.$t('localization.false'),
             type: 'warning'
             }).then(() => {
             
@@ -123,14 +144,14 @@
 						//this.logining = false; 
                 if(response.code=='0000'){
                     this.$message({
-                        message: response.message,
+                        message: this.$t('localization.compluteSuccess'),
                         type: 'success'
                     });  
                     this.$router.push({ path: '/login' });
          
                 }else{
                     this.$message({
-                        message: response.message,
+                        message: this.$t('localization.compluteError'),
                         type: 'error'
                     });
                 }
@@ -146,7 +167,7 @@
             }).catch(() => {
             this.$message({
                 type: 'info',
-                message: '已取消修改'
+                message: this.$t('localization.equipmentdeleteOver')
             });          
             });
       },
@@ -157,7 +178,7 @@
                                 this.subData = response.data;
                         }else{
                             this.$message({
-                                message: response.message,
+                                message: this.$t('localization.compluteError'),
                                 type: 'error'
                             });
                         }

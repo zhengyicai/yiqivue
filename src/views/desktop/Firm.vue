@@ -174,7 +174,7 @@
             this.loadMaxCode();
            this.isEdit = false;
            this.dialogFormVisible = true;
-		   this.formtitle ="新增厂商";   
+		   this.formtitle ="新增代理商";   
 		   
            this.subData = {
                 userName: '',
@@ -307,7 +307,7 @@
         
         },
       open(){
-          if(this.formtitle == '新增厂商'){
+          if(this.formtitle == '新增代理商'){
               this.subData.parentId ='66b7ef552d9e4e4599e853c7d6101373';  //admin
               this.subData.roleId='70220c5ee71e11e8987f5254003ad144';
               this.subData.roleName='厂商管理员';

@@ -17,7 +17,7 @@ export function dateFormat(row,column){
 
 export function state(row){
     var date = row;
-          return date =='10'?'正常':date =='20'?'禁用':'';
+          return date =='10'?this.$t("localization.ok"):date =='20'?this.$t("localization.disok"):'';
 };
 
 export function recordType(row){
@@ -66,19 +66,19 @@ export function showType(row){
     // }
 
      if(data == '10'){
-        str="图片全屏"; 
+        str=this.$t("localization.equipmentShow10"); 
     }else if(data == '20'){
-        str="视频全屏"; 
+        str=this.$t("localization.equipmentShow20"); 
     }else if(data == '30'){
-        str="图片视频1:2"; 
+        str=this.$t("localization.equipmentShow30"); 
     }else if(data == '40'){
-        str="视频图片2:1"; 
+        str=this.$t("localization.equipmentShow40"); 
     }else if(data == '50'){
-        str="图片1:2"; 
+        str=this.$t("localization.equipmentShow50"); 
     }else if(data == '60'){
-        str="图片2:1"; 
+        str=this.$t("localization.equipmentShow60"); 
     }else if(data == '70'){
-        str="图片1:1"; 
+        str=this.$t("localization.equipmentShow70"); 
     }
     return str;
 };

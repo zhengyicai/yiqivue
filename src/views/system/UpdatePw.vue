@@ -1,21 +1,36 @@
 <template> 
  <div class="block">   
 	 	
-      
+        <!-- 
+            updatePwd:"修改密码",
+            updateOld:"*旧密码",
+            updateNew:"*新密码",
+            updateSure:"*确认密码",
+            updatePwdPlease:"请输入旧密码",
+            updateOldPlease:"请输入新密码",
+            updateSurePlease:"请输入确认密码",
+            sureTitle:"确认修改密码, 是否继续?",
+            cannelTitle:"已取消修改" 
 
-         <el-card header="修改密码" style="width:400px;margin:auto auto;margin-top:50px">
-			<el-form ref="subData" :model="subData" label-width="100px" @submit.prevent="onSubmit" style="margin:20px;">
-                    <el-form-item label="*旧密码">
-                      <el-input  v-model="subData.oldPw"  placeholder="请输入旧密码"></el-input>
+
+
+         -->
+
+
+
+         <el-card :header="this.$t('localization.updatePwd')" style="width:400px;margin:auto auto;margin-top:50px">
+			<el-form ref="subData" :model="subData" label-width="150px" @submit.prevent="onSubmit" style="margin:20px;">
+                    <el-form-item :label="this.$t('localization.updateOld')">
+                      <el-input  v-model="subData.oldPw"  :placeholder="this.$t('localization.updatePwdPlease')"></el-input>
                     </el-form-item>    
-                    <el-form-item label="*新密码">
-                        <el-input v-model="subData.newPw"  placeholder="请输入新密码"></el-input>
+                    <el-form-item :label="this.$t('localization.updateNew')">
+                        <el-input v-model="subData.newPw"  :placeholder="this.$t('localization.updateOldPlease')"></el-input>
                     </el-form-item>
-                    <el-form-item label="*确认密码">
-                      <el-input  v-model="subData.okPw"  placeholder="请输入确认密码"></el-input>
+                    <el-form-item :label="this.$t('localization.updateSure')">
+                      <el-input  v-model="subData.okPw"  :placeholder="this.$t('localization.updateSurePlease')"></el-input>
                     </el-form-item>
                      <el-form-item style="text-align:right" >
-                      <el-button type="primary" @click="UpdateRow()">确 定</el-button>
+                      <el-button type="primary" @click="UpdateRow()">{{this.$t('localization.true')}}</el-button>
                     </el-form-item>
                  
 			</el-form>	
@@ -66,9 +81,9 @@
       
      
 	  UpdateRow() {
-       this.$confirm('确认修改密码, 是否继续?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
+       this.$confirm(this.$t('localization.sureTitle'), this.$t('localization.equipmentdeleteTitle'), {
+            confirmButtonText: this.$t('localization.true'),
+            cancelButtonText:  this.$t('localization.false'),
             type: 'warning'
             }).then(() => {
             
@@ -78,14 +93,14 @@
 						//this.logining = false; 
                 if(response.code=='0000'){
                     this.$message({
-                        message: response.message,
+                        message: this.$t('localization.compluteSuccess'),
                         type: 'success'
                     });  
                     this.$router.push({ path: '/login' });
          
                 }else{
                     this.$message({
-                        message: response.message,
+                        message: this.$t('localization.compluteError'),
                         type: 'error'
                     });
                 }
@@ -101,7 +116,7 @@
             }).catch(() => {
             this.$message({
                 type: 'info',
-                message: '已取消修改'
+                message: this.$t('localization.equipmentdeleteOver')
             });          
             });
       },
