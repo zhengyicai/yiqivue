@@ -186,6 +186,12 @@
                       ddd = this.$t("localization.loginplacecode1")
                     }else  if("验证码输入有误或已失效" ==response.message){
                       ddd = this.$t("localization.loginplacecode2")
+                    }else  if("登录用户不存在" ==response.message){
+                      ddd = this.$t("localization.loginUserError")
+                    }else  if("登录密码错误！" ==response.message){
+                      ddd = this.$t("localization.loginPwdError")
+                    }else  if("验证码输入有误或已失效" ==response.message){
+                      ddd = this.$t("localization.loginplacecode2")
                     }
                     
                     

@@ -1,6 +1,6 @@
 <template> 
  <div class="block">   
-	 	<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+	 	<el-col :span="20" class="toolbar" style="padding-bottom: 0px;">
 			<el-form :inline="true">
 				<el-form-item style="width:300px">
 					<el-input v-model="equipmentNo"  @keyup.enter.native="query"  :placeholder="this.$t('localization.equipmentSearch')" style="width:300px"></el-input>
@@ -61,14 +61,14 @@
 				
 			</el-form>
 		</el-col>
-        <!-- <el-col :span="4" class="toolbar" style="padding-bottom: 0px;">
+        <el-col :span="4" class="toolbar" style="padding-bottom: 0px;">
 			<el-form :inline="true">
 				
 				<el-form-item  style="text-align:right">
-					<el-button type="primary" @click="add()">新增</el-button>
+					<el-button type="primary" @click="add()">{{this.$t('localization.add')}}</el-button>
 				</el-form-item>
 			</el-form>
-		</el-col> -->
+		</el-col>
       
         
 		<el-table :data="datalist" highlight-current-row v-loading="listLoading" style="width: 100%;">
@@ -303,7 +303,7 @@
 
            this.fileList = [];     
            this.dialogFormVisible = true;
-		   this.formtitle ="新增设备";   
+		   this.formtitle =this.$t('localization.add');   
            this.subData = {}; 
            this.show = "1";
           
@@ -651,10 +651,21 @@
                         this.loadData();
                         
                 }else{
-                    this.$message({
-                        message: this.$t('localization.compluteError'),
-                        type: 'error'
-                    });
+
+                    if("该设备号已经存在" == response.message){
+                        
+                         this.$message({
+                            message: this.$t('localization.compluteOver'),
+                            type: 'error'
+                        });
+                    }else{
+                       this.$message({
+                            message: this.$t('localization.compluteError'),
+                            type: 'error'
+                        });     
+                    }
+
+                    
 
                 }
                         

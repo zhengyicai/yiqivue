@@ -19,6 +19,9 @@ module.exports = {
      loginplacepwd1:"密码不能为空！",
      loginplacecode1:"验证码不能为空！",
      loginplacecode2:"验证码输入有误或已失效",
+     loginUserError:"登录用户不存在",
+     loginPwdError:"登录密码错误！",
+     
 
 
      role1:"首页",
@@ -43,12 +46,14 @@ module.exports = {
 
 
     createTime:"创建时间",
+    updateTime:"修改时间",
     state:"状态",
     remark:"备注",
     complete:"操作",
     update:"编辑",
     delete:"删除",
     select:"查询",
+    add:"新增",
     ok:"正常",
     disok:"禁用",
     true:"确定",
@@ -91,6 +96,8 @@ module.exports = {
     equipmentdNoPlease:"设备编号不能为空",
     equipmentdName1Please:"设备名称不能为空",
     compluteSuccess:"操作成功",
+
+    compluteOver:"该设备号已经存在",
     compluteError:"操作失败",
 
     meteType:"请选择素材类型",
@@ -116,6 +123,12 @@ module.exports = {
     connent:"*联系人",
     mobile:"*手机号",
     address:"*联系地址",
+
+    userName2:"用户名",
+    loginName2:"登录名",
+    connent2:"联系人",
+    mobile2:"手机号",
+    address2:"联系地址",
     userName1Please:"请输入用户名",
     loginName1Please:"请输入登录名",
     connentPlease:"请输入联系人",
@@ -123,6 +136,7 @@ module.exports = {
     addressPlease:"请输入联系地址",
     userName1Null:"用户名不能为空",
     loginName1Null:"登录名不能为空",
+    pwdNull:"新密码不能为空",
     connentNull:"联系人不能为空",
     mobileNull:"手机号不能为空",
     addressNull:"联系地址不能为空",
@@ -131,7 +145,43 @@ module.exports = {
     myMessage:"我的消息",
     myPwd:"修改密码",
     myOut:"退出登录",
-    outTitle:"确认退出吗?"
+    outTitle:"确认退出吗?",
+    showUser:"展示用户",
+    authUser:"绑定用户",
+    agentName:"代理商名称",
+
+    agentPlease:"请选择代理商",
+
+    agentNo:"代理商编号",
+    agentNo2:"*代理商编号",
+    agentPwd:"密码",
+    agentPwd2:"*密码",
+    agentNoPlease:"请输入代理商编号",
+    agentPwdPlease:"请输入密码",
+    agentPwdNull:"密码不能为空",
+    agentNoNull:"代理商编号不能为空",
+    role:"角色",
+
+
+    paramName:"参数名",
+    paramName1:"*参数名",
+    paramCNName:"参数中文名",
+    paramCNName1:"*参数中文名",
+    paramValue:"参数值",
+    paramValue1:"*参数值",
+    paramNamePlease:"请输入参数名",
+    paramCNNamePlease:"请输入参数中文名",
+    paramValuePlease:"请输入参数值",
+    paramNameNull:"参数名不能为空",
+    paramCNNameNull:"参数中文名不能为空",
+    paramValueNull:"参数值不能为空",
+    function1:"功能",
+    save:"保存",
+
+
+
+    
+
 
 
     

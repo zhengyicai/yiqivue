@@ -33,29 +33,29 @@
 		<el-table :data="datalist" highlight-current-row v-loading="listLoading" style="width: 100%;">
 		
 			
-			<el-table-column prop="userName" label="用户名" width="150" sortable>
+			<el-table-column prop="userName" :label="this.$t('localization.userName2')" width="150" sortable>
 			</el-table-column>
-			<el-table-column prop="loginName" label="登录名" width="150" sortable>
+			<el-table-column prop="loginName" :label="this.$t('localization.loginName2')" width="150" sortable>
 			</el-table-column>
-			<el-table-column prop="mobile" label="手机号" width="250" sortable>
+			<el-table-column prop="mobile" :label="this.$t('localization.mobile2')" width="250" sortable>
 			</el-table-column>
-            <el-table-column prop="roleName" label="角色" width="250" sortable>
+            <el-table-column prop="roleName" :label="this.$t('localization.role')" width="250" sortable>
 			</el-table-column>
-			<el-table-column  label="创建时间" min-width="120">
+			<el-table-column  :label="this.$t('localization.createTime')" min-width="120">
 				<template slot-scope="scope">{{ scope.row.createTime | moment('YYYY-MM-DD') }}</template>
 			</el-table-column>
 			
          
-			<el-table-column  label="状态" min-width="120">
+			<el-table-column  :label="this.$t('localization.state')" min-width="120">
 				<template slot-scope="scope">{{ state(scope.row.state)}}</template>
 			</el-table-column>
             
 			
 			
-			<el-table-column label="操作" min-width="250">
+			<el-table-column :label="this.$t('localization.complete')" min-width="250">
 				<template scope="scope">
-				 <el-button size="small" type="primary"  @click="edit(scope.$index,scope.row)">编辑</el-button>
-			     <el-button size="small" type="danger" @click="deleteRow(scope.$index, scope.row)">删除</el-button>
+				 <el-button size="small" type="primary"  @click="edit(scope.$index,scope.row)">{{update1}}</el-button>
+			     <el-button size="small" type="danger" @click="deleteRow(scope.$index, scope.row)">{{delete1}}</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -71,34 +71,34 @@
 		</el-pagination>
 
         <el-dialog   :title="formtitle" :visible.sync="dialogFormVisible" >
-			<el-form ref="subData" :model="subData" label-width="100px" @submit.prevent="onSubmit" style="margin:20px;">
-                    <el-form-item label="*用户名">
-                      <el-input v-model="subData.userName"  placeholder="请输入用户名"></el-input>
+			<el-form ref="subData" :model="subData" label-width="150px" @submit.prevent="onSubmit" style="margin:20px;">
+                    <el-form-item :label="this.$t('localization.userName1')">
+                      <el-input v-model="subData.userName"  :placeholder="this.$t('localization.userName1Please')"></el-input>
                     </el-form-item>    
-                    <el-form-item label="*登录名">
-                        <el-input v-bind:disabled="isEdit" v-model="subData.loginName"  placeholder="请输入登录名"></el-input>
+                    <el-form-item :label="this.$t('localization.loginName1')">
+                        <el-input v-bind:disabled="isEdit" v-model="subData.loginName"  :placeholder="this.$t('localization.loginName1Please')"></el-input>
                     </el-form-item>
-                    <el-form-item label="*密码">
-                      <el-input v-bind:disabled="isEdit" v-model="subData.password"  placeholder="请输入密码"></el-input>
+                    <el-form-item :label="this.$t('localization.agentPwd')">
+                      <el-input v-bind:disabled="isEdit" v-model="subData.password"  :placeholder="this.$t('localization.agentPwdPlease')"></el-input>
                     </el-form-item>
-                     <el-form-item label="手机号">
-                        <el-input v-model="subData.mobile"  placeholder="请输入手机号"></el-input>
+                     <el-form-item :label="this.$t('localization.mobile')">
+                        <el-input v-model="subData.mobile"  :placeholder="this.$t('localization.mobilePlease')"></el-input>
                     </el-form-item>
                     <!-- <el-form-item label="状态">
                         <el-radio-group v-model="subData.roleId">
                             <el-radio :label="item.id" :key="item.id" v-for="item in roles">{{item.roleName}}</el-radio>
                         </el-radio-group>
                     </el-form-item> -->
-                    <el-form-item label="状态">
+                    <el-form-item :label="this.$t('localization.state')">
 					<el-radio-group v-model="subData.state">
-						<el-radio label="10">正常</el-radio>
-						<el-radio label="20">禁用</el-radio>
+						<el-radio label="10">{{this.$t('localization.ok')}}</el-radio>
+						<el-radio label="20">{{this.$t('localization.disok')}}</el-radio>
 					</el-radio-group>
 				</el-form-item>
 			</el-form>	
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="dialogFormVisible = false">取 消</el-button>
-				<el-button type="primary" @click="open()">确 定</el-button>
+				<el-button @click="dialogFormVisible = false">{{this.$t('localization.false')}}</el-button>
+				<el-button type="primary" @click="open()">{{this.$t('localization.true')}}</el-button>
 			</div>
         </el-dialog>
 
@@ -174,7 +174,7 @@
        edit(index, rows){
             this.isEdit = true;
             this.dialogFormVisible = true;
-		    this.formtitle ="修改账户";   
+		    this.formtitle =this.$t('localization.update');   
             this.subData = rows;
             this.subData.password = "******";
         //alert("asdf");
@@ -226,7 +226,7 @@
           }else{
               if(this.subData.loginName.trim()=="" || this.subData.loginName == null){
                 this.$message({
-                    message: "登录名不能为空",
+                    message:this.$t('localization.loginName1Null'),    
                     type: 'error'
                 });
                 return;
@@ -237,13 +237,13 @@
 						//this.logining = false; 
 						if(response.code=='0000'){
 							this.$message({
-								message: response.message,
+								message: this.$t('localization.compluteSuccess'),
 								type: 'success'
 							});  
 							this.dialogFormVisible = false;
 						}else{
 							this.$message({
-								message: response.message,
+								message:this.$t('localization.compluteError'),
 								type: 'error'
 							});
 						}
@@ -256,9 +256,9 @@
           
       },  
 	  deleteRow(index, rows) {
-       this.$confirm('确认删除, 是否继续?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
+       this.$confirm(this.$t('localization.equipmentdeletePlease'), this.$t('localization.equipmentdeleteTitle'), {
+            confirmButtonText: this.$t('localization.true'),
+            cancelButtonText: this.$t('localization.false'),
             type: 'warning'
             }).then(() => {
             // this.$message({
@@ -271,13 +271,13 @@
 						//this.logining = false; 
                 if(response.code=='0000'){
                     this.$message({
-                        message: response.message,
+                        message:this.$t('localization.compluteSuccess'),
                         type: 'success'
                     });  
                     this.dialogFormVisible = false;
                 }else{
                     this.$message({
-                        message: response.message,
+                        message:this.$t('localization.compluteError'),
                         type: 'error'
                     });
                 }
@@ -293,7 +293,7 @@
             }).catch(() => {
             this.$message({
                 type: 'info',
-                message: '已取消删除'
+                message: this.$t('localization.equipmentdeleteOver')
             });          
             });
       },
@@ -348,6 +348,8 @@
         dialogFormVisible:false,
         roles:[],
         formtitle:"",
+        update1:this.$t("localization.update"),
+        delete1:this.$t("localization.delete"),
       };
     }
   }

@@ -25,7 +25,7 @@
 				</el-form-item> -->
 				
 				<el-form-item>
-					<el-button type="primary" @click="add()">新增</el-button>
+					<el-button type="primary" @click="add()">{{this.$t('localization.add')}}</el-button>
 				</el-form-item>
 			</el-form>
 		</el-col>
@@ -33,32 +33,32 @@
 		<el-table :data="datalist" highlight-current-row v-loading="listLoading" style="width: 100%;">
 		
 			
-			<el-table-column prop="paraName" label="参数名" width="150" sortable>
+			<el-table-column prop="paraName" :label="this.$t('localization.paramName')" width="180" sortable>
 			</el-table-column>
-			<el-table-column prop="paraCnName" label="参数中文名" width="150" sortable>
+			<el-table-column prop="paraCnName" :label="this.$t('localization.paramCNName')" width="250" sortable>
 			</el-table-column>
-			<el-table-column prop="paraValue" label="参数值" width="250" sortable>
+			<el-table-column prop="paraValue" :label="this.$t('localization.paramValue')" width="250" sortable>
 			</el-table-column>
-			<el-table-column  label="创建时间" min-width="120">
+			<el-table-column  :label="this.$t('localization.createTime')" min-width="120">
 				<template slot-scope="scope">{{ scope.row.createTime | moment('YYYY-MM-DD') }}</template>
 			</el-table-column>
-			<el-table-column  label="更新时间" min-width="120">
+			<el-table-column  :label="this.$t('localization.updateTime')" min-width="120">
 				<template slot-scope="scope">{{ scope.row.updateTime | moment('YYYY-MM-DD') }}</template>
 			</el-table-column>
-            <el-table-column prop="remark" label="备注" width="180" sortable>
+            <el-table-column prop="remark" :label="this.$t('localization.remark')" width="180" sortable>
 			</el-table-column>
-			<el-table-column  label="状态" min-width="120">
+			<el-table-column  :label="this.$t('localization.state')" min-width="120">
 				<template slot-scope="scope">{{ state(scope.row.state)}}</template>
 			</el-table-column>
             
 			
 			
-			<el-table-column label="操作" min-width="250">
+			<el-table-column :label="this.$t('localization.complete')" min-width="250">
 				<template scope="scope">
-				 <el-button size="small" type="primary"  @click="edit(scope.$index,scope.row)">编辑</el-button>
+				 <el-button size="small" type="primary"  @click="edit(scope.$index,scope.row)">{{update1}}</el-button>
 				<!--<el-button size="small" type="primary"  v-if='scope.row.sysUserId=="" ||  scope.row.sysUserId ==null' @click="addAdmin(scope.$index,scope.row)">新增物业</el-button>
 				<el-button size="small" type="warning"  v-if='scope.row.sysUserId!="" ||  scope.row.sysUserId !=null' @click="editAdmin(scope.$index,scope.row)">修改物业</el-button> -->
-                <el-button size="small" type="danger" @click="deleteRow(scope.$index, scope.row)">删除</el-button>
+                <el-button size="small" type="danger" @click="deleteRow(scope.$index, scope.row)">{{delete1}}</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -74,30 +74,30 @@
 		</el-pagination>
 
         <el-dialog   :title="formtitle" :visible.sync="dialogFormVisible" >
-			<el-form ref="subData" :model="subData" label-width="100px" @submit.prevent="onSubmit" style="margin:20px;">
-                    <el-form-item label="*参数名">
-                      <el-input v-model="subData.paraName"  placeholder="请输入参数名"></el-input>
+			<el-form ref="subData" :model="subData" label-width="200px" @submit.prevent="onSubmit" style="margin:20px;">
+                    <el-form-item :label="this.$t('localization.paramName1')">
+                      <el-input v-model="subData.paraName"  :placeholder="this.$t('localization.paramNamePlease')"></el-input>
                     </el-form-item>    
-                    <el-form-item label="*参数值">
-                        <el-input v-model="subData.paraValue"  placeholder="请输入参数值"></el-input>
+                    <el-form-item :label="this.$t('localization.paramValue1')">
+                        <el-input v-model="subData.paraValue" :placeholder="this.$t('localization.paramValuePlease')"></el-input>
                     </el-form-item>
-                    <el-form-item label="*参数中文名">
-                      <el-input v-model="subData.paraCnName"  placeholder="请输入参数中文名"></el-input>
+                    <el-form-item :label="this.$t('localization.paramCNName1')">
+                      <el-input v-model="subData.paraCnName"  :placeholder="this.$t('localization.paramCNNamePlease')"></el-input>
                     </el-form-item>
 
-                    <el-form-item label="*参数描述">
-                      <el-input type="textarea" v-model="subData.remark"   placeholder="请输入参数描述"></el-input>
+                    <el-form-item :label="this.$t('localization.remark')">
+                      <el-input type="textarea" v-model="subData.remark"   :placeholder="this.$t('localization.equipmentRemarkPlease')"></el-input>
                     </el-form-item>    
-                    <el-form-item label="状态">
+                    <el-form-item :label="this.$t('localization.state')">
 					<el-radio-group v-model="subData.state">
-						<el-radio label="10">正常</el-radio>
-						<el-radio label="20">禁用</el-radio>
+						<el-radio label="10">{{this.$t('localization.ok')}}</el-radio>
+						<el-radio label="20">{{this.$t('localization.disok')}}</el-radio>
 					</el-radio-group>
 				</el-form-item>
 			</el-form>	
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="dialogFormVisible = false">取 消</el-button>
-				<el-button type="primary" @click="open()">确 定</el-button>
+				<el-button @click="dialogFormVisible = false">{{this.$t('localization.false')}}</el-button>
+				<el-button type="primary" @click="open()">{{this.$t('localization.true')}}</el-button>
 			</div>
         </el-dialog>
 
@@ -149,7 +149,7 @@
 
       add(){
            this.dialogFormVisible = true;
-		   this.formtitle ="新增参数";   
+		   this.formtitle =this.$t('localization.add');   
 		   this.subData = {}; 
            this.communityId = ''; 
            this.buildingId = '';
@@ -169,26 +169,26 @@
     
        edit(index, rows){
             this.dialogFormVisible = true;
-		    this.formtitle ="修改参数";   
+		    this.formtitle =this.$t('localization.update');   
              this.subData = rows;
         //alert("asdf");
 
 
       },
       open(){
-          if(this.formtitle == '新增参数'){
+          if(this.formtitle == this.$t('localization.add')){
               RequestPost("/parameter/add",this.subData).then(response => {
 						
 						//this.logining = false; 
 						if(response.code=='0000'){
 							this.$message({
-								message: response.message,
+								message: this.$t('localization.compluteSuccess'),
 								type: 'success'
 							});  
 							this.dialogFormVisible = false;
 						}else{
 							this.$message({
-								message: response.message,
+								message: this.$t('localization.compluteError'),
 								type: 'error'
 							});
 						}
@@ -203,13 +203,13 @@
 						//this.logining = false; 
 						if(response.code=='0000'){
 							this.$message({
-								message: response.message,
+								message: this.$t('localization.compluteSuccess'),
 								type: 'success'
 							});  
 							this.dialogFormVisible = false;
 						}else{
 							this.$message({
-								message: response.message,
+								message:this.$t('localization.compluteError'),
 								type: 'error'
 							});
 						}
@@ -222,9 +222,9 @@
           
       },  
 	  deleteRow(index, rows) {
-       this.$confirm('确认删除, 是否继续?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
+       this.$confirm(this.$t('localization.equipmentdeletePlease'), this.$t('localization.equipmentdeleteTitle'), {
+            confirmButtonText: this.$t('localization.true'),
+            cancelButtonText: this.$t('localization.false'),
             type: 'warning'
             }).then(() => {
             // this.$message({
@@ -237,13 +237,13 @@
 						//this.logining = false; 
                 if(response.code=='0000'){
                     this.$message({
-                        message: response.message,
+                        message: this.$t('localization.compluteSuccess'),
                         type: 'success'
                     });  
                     this.dialogFormVisible = false;
                 }else{
                     this.$message({
-                        message: response.message,
+                        message: this.$t('localization.compluteError'),
                         type: 'error'
                     });
                 }
@@ -259,7 +259,7 @@
             }).catch(() => {
             this.$message({
                 type: 'info',
-                message: '已取消删除'
+                message: this.$t('localization.equipmentdeleteOver')
             });          
             });
       },
@@ -451,6 +451,8 @@
           value: '30',
           label: '单元门口机'
         }],
+         update1:this.$t("localization.update"),
+        delete1:this.$t("localization.delete"),
 
       };
     }

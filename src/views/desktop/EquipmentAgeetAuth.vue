@@ -3,12 +3,12 @@
 	 	<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
 			<el-form :inline="true">
 				<el-form-item style="width:300px">
-					<el-input v-model="equipmentNo"  @keyup.enter.native="query"  placeholder="请输入设备[编号|名称]" style="width:300px"></el-input>
+					<el-input v-model="equipmentNo"  @keyup.enter.native="query"  :placeholder="this.$t('localization.equipmentSearch')" style="width:300px"></el-input>
 				</el-form-item>
 
                 <el-form-item style="width:200px">
-					<el-select  v-model="type" placeholder="请选择展示类型">
-                            <el-option value="" label="">全部</el-option>
+					<el-select  v-model="type" :placeholder="this.$t('localization.equipmentType')">
+                            <el-option value="" label="">{{this.$t('localization.equipmentAll')}}</el-option>
                              <el-option
                                         v-for="item in options"
                                         :key="item.value"
@@ -23,7 +23,7 @@
 
                  
 				<el-form-item  >
-					<el-button type="primary" v-on:click="query">查询</el-button>
+					<el-button type="primary" v-on:click="query">{{this.$t('localization.select')}}</el-button>
 				</el-form-item>
                 <!-- <el-form-item  >
 					<el-button type="success" v-on:click="query">刷新</el-button>
@@ -44,39 +44,39 @@
         
 		<el-table :data="datalist" highlight-current-row v-loading="listLoading" style="width: 100%;">
 		
-			<el-table-column prop="equipmentNo" label="设备编号" width="150" sortable>
+			<el-table-column prop="equipmentNo" :label="this.$t('localization.equipmentNo')" width="150" sortable>
                 
 			</el-table-column>
-			<el-table-column prop="equipmentName1" label="设备名称" width="150" sortable>
+			<el-table-column prop="equipmentName1" :label="this.$t('localization.equipmentName1')" width="150" sortable>
 			</el-table-column>
-            <el-table-column prop="equipmentName" label="显示格式" width="200" sortable>
+            <el-table-column prop="equipmentName" :label="this.$t('localization.equipmentName')" width="200" sortable>
                 <template slot-scope="scope">{{ showType(scope.row.type)}}</template>
 			</el-table-column>
             <!-- <el-table-column prop="fileUrl" label="文件地址" width="250" sortable>
 			</el-table-column> -->
-            <el-table-column  label="创建时间" width="170">
+            <el-table-column  :label="this.$t('localization.createTime')" width="170">
 				<template slot-scope="scope">{{ scope.row.createTime | moment('YYYY-MM-DD HH:mm:ss') }}</template>
 			</el-table-column>
-            <el-table-column  label="状态" width="170">
+            <el-table-column  :label="this.$t('localization.state')" width="170">
 				<template slot-scope="scope">{{ state(scope.row.state)}}</template>
 			</el-table-column>
-			<el-table-column  label="备注" width="200">
+			<el-table-column  :label="this.$t('localization.remark')" width="200">
 				<template slot-scope="scope">{{ scope.row.remark}}</template>
             </el-table-column>
-            <el-table-column  label="代理商名称" width="200">
+            <el-table-column :label="this.$t('localization.agentName')" width="200">
 				<template slot-scope="scope">{{scope.row.agentUserName}}</template>
             </el-table-column>
-            <el-table-column  label="用户名称" width="200">
+            <el-table-column  :label="this.$t('localization.userName')" width="200">
 				<template slot-scope="scope">{{scope.row.userId =="426cac38e7084c9e9c2cfab41b5db10a"?"":scope.row.userName}}</template>
 			</el-table-column>
 			
-            <el-table-column label="操作" min-width="160">
+            <el-table-column :label="this.$t('localization.complete')" min-width="160">
 				<template scope="scope">
 				<!-- 
 				<el-button size="small" type="primary"  v-if='scope.row.sysUserId=="" ||  scope.row.sysUserId ==null' @click="addAdmin(scope.$index,scope.row)">新增物业</el-button>
 				<el-button size="small" type="warning"  v-if='scope.row.sysUserId!="" ||  scope.row.sysUserId !=null' @click="editAdmin(scope.$index,scope.row)">修改物业</el-button> -->
                 <!-- <el-button size="small" type="primary"  @click="addFile(scope.$index,scope.row)">绑定素材</el-button> -->
-                <el-button size="small" type="primary"  @click="update(scope.$index,scope.row)">绑定用户</el-button>
+                <el-button size="small" type="primary"  @click="update(scope.$index,scope.row)">{{authUser}}</el-button>
                 <!-- <el-button size="small" type="danger"  @click="deleteRow(scope.$index, scope.row)">删除</el-button> -->
                 <!-- <el-button size="small" type="warning" @click="updateRow(scope.$index, scope.row)">替换</el-button> -->
 				</template>
@@ -109,7 +109,7 @@
                     </el-form-item>  -->
 
                 
-                    <el-form-item label="展示用户">
+                    <el-form-item :label="this.$t('localization.showUser')">
                      
                         <el-select  v-model="subData.userId"  @change="selectModel($event)" placeholder="请选择用户">
                              <el-option
@@ -124,8 +124,8 @@
 
 			</el-form>	
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="dialogFormVisible = false">取 消</el-button>
-				<el-button type="primary" @click="open()">确 定</el-button>
+				<el-button @click="dialogFormVisible = false">{{this.$t('localization.false')}}</el-button>
+				<el-button type="primary" @click="open()">{{this.$t('localization.true')}}</el-button>
 			</div>
         </el-dialog>
 
@@ -308,7 +308,7 @@
 
 
       update(index, rows) {
-        this.formtitle = "编辑";
+        this.formtitle = this.$t('localization.update');
         this.dialogFormVisible = true;
         this.show = "2";
 
@@ -614,7 +614,7 @@
             RequestPost("/sysEquipment/addFile",this.subData).then(response => {
                 if(response.code == '0000'){
                         this.$message({
-                            message: response.message,
+                            message:this.$t('localization.compluteSuccess'),
                             type: 'success'
                         });  
                         this.dialogFormVisible = false;
@@ -622,7 +622,7 @@
                         
                 }else{
                     this.$message({
-                        message: response.message,
+                        message: this.$t('localization.compluteError'),
                         type: 'error'
                     });
 
@@ -641,14 +641,14 @@
                 //this.logining = false; 
                 if(response.code=='0000'){
                     this.$message({
-                        message: response.message,
+                        message:this.$t('localization.compluteSuccess'),
                         type: 'success'
                     });  
                     this.dialogFormVisible = false;
                     this.loadData();
                 }else{
                     this.$message({
-                        message: response.message,
+                        message:this.$t('localization.compluteError'),
                         type: 'error'
                     });
                 }
@@ -780,6 +780,7 @@
          allFileListRight:[], //右边视频资源
          allFileListLeft1:[],
          allFileListLeft2:[], //右边图片资源
+         authUser:this.$t("localization.authUser"),
 
 
         
@@ -787,25 +788,25 @@
 
         options: [{
           value: '10',
-          label: '图片全屏'
+          label: this.$t("localization.equipmentShow10"),
         }, {
           value: '20',
-          label: '视频全屏',
+          label: this.$t("localization.equipmentShow20"),
         }, {
           value: '30',
-          label: '图片视频1:2'
+          label: this.$t("localization.equipmentShow30"),
         }, {
           value: '40',
-          label: '视频图片2:1'
+          label: this.$t("localization.equipmentShow40"),
         }, {
           value: '50',
-          label: '图片1:2'
+          label: this.$t("localization.equipmentShow50"),
         },{
           value: '60',
-          label: '图片2:1'
+          label: this.$t("localization.equipmentShow60"),
         },{
           value: '70',
-          label: '图片1:1'
+          label: this.$t("localization.equipmentShow70"),
         }],
 
       };

@@ -27,7 +27,7 @@
 			<el-form :inline="true" style="text-align:right">
 				
 				<el-form-item  >
-					<el-button type="primary" v-on:click="showAddPanel">新增</el-button>
+					<el-button type="primary" v-on:click="showAddPanel">{{this.$t("localization.add")}}</el-button>
 				</el-form-item>
                
 				
@@ -36,35 +36,35 @@
           <el-table :data="datalist" highlight-current-row v-loading="listLoading" style="width: 100%;">
 		
 			
-			<el-table-column prop="userName" label="用户名称" width="150" sortable>
+			<el-table-column prop="userName" :label="this.$t('localization.userName2')" width="150" sortable>
 			</el-table-column>
 			<!-- <el-table-column prop="loginName" label="登录名" width="150" sortable>
 			</el-table-column> -->
-            <el-table-column prop="connect" label="联系人" width="150" sortable>
+            <el-table-column prop="connect" :label="this.$t('localization.connent2')" width="150" sortable>
 			</el-table-column>
-			<el-table-column prop="mobile" label="手机号" width="150" sortable>
+			<el-table-column prop="mobile" :label="this.$t('localization.mobile2')" width="180" sortable>
 			</el-table-column>
-            <el-table-column prop="address" label="联系地址" width="220" sortable>
+            <el-table-column prop="address" :label="this.$t('localization.address2')" width="220" sortable>
 			</el-table-column>
-            <el-table-column prop="code" label="代理商编号" width="140" sortable>
-			</el-table-column>
-			<el-table-column  label="创建时间" min-width="130">
+            <!-- <el-table-column prop="code" label="代理商编号" width="140" sortable>
+			</el-table-column> -->
+			<el-table-column  :label="this.$t('localization.createTime')" min-width="130">
 				<template slot-scope="scope">{{ scope.row.createTime | moment('YYYY-MM-DD') }}</template>
 			</el-table-column>
 			
          
-			<el-table-column  label="状态" min-width="100">
+			<el-table-column  :label="this.$t('localization.state')" min-width="100">
 				<template slot-scope="scope">{{ state(scope.row.state)}}</template>
 			</el-table-column>
 
-            <el-table-column prop="remark" label="备注" width="150" sortable>
+            <el-table-column prop="remark" :label="this.$t('localization.remark')" width="150" sortable>
 			</el-table-column>
 			
 			
-			<el-table-column label="操作" min-width="150">
+			<el-table-column :label="this.$t('localization.complete')" min-width="150">
 				<template scope="scope">
-				 <el-button size="small" type="primary"  @click="edit(scope.$index,scope.row)">编辑</el-button>
-			     <el-button size="small" type="danger" @click="deleteRow(scope.$index, scope.row)">删除</el-button>
+				 <el-button size="small" type="primary"  @click="edit(scope.$index,scope.row)">{{update1}}</el-button>
+			     <el-button size="small" type="danger" @click="deleteRow(scope.$index, scope.row)">{{delete1}}</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -78,49 +78,50 @@
 			:total="total" 
 		>
 		</el-pagination>
+        
 
         <el-dialog   :title="formtitle" :visible.sync="dialogFormVisible" >
-			<el-form ref="subData" :model="subData" label-width="100px" @submit.prevent="onSubmit" style="margin:20px;">
-                    <el-form-item label="*用户名">
-                      <el-input v-bind:disabled="isEdit" v-model="subData.userName"  placeholder="请输入用户名"></el-input>
+			<el-form ref="subData" :model="subData" label-width="150px" @submit.prevent="onSubmit" style="margin:20px;">
+                    <el-form-item :label="this.$t('localization.userName1')">
+                      <el-input v-bind:disabled="isEdit" v-model="subData.userName"  :placeholder="this.$t('localization.userName1Please')"></el-input>
                     </el-form-item>    
-                    <el-form-item label="*登录名">
-                        <el-input v-model="subData.loginName"  placeholder="请输入登录名"></el-input>
+                    <el-form-item :label="this.$t('localization.loginName1')">
+                        <el-input v-model="subData.loginName" :placeholder="this.$t('localization.loginName1Please')"></el-input>
                     </el-form-item>
-                    <el-form-item label="*密码">
-                      <el-input v-bind:disabled="isEdit" v-model="subData.password"  placeholder="请输入密码"></el-input>
+                    <el-form-item :label="this.$t('localization.updateNew')">
+                      <el-input v-bind:disabled="isEdit" v-model="subData.password"  :placeholder="this.$t('localization.updateOldPlease')"></el-input>
                     </el-form-item>
                      <!-- <el-form-item label="*厂商编号">
                       <el-input type="number" v-bind:disabled="isEdit" v-model="subData.code"  placeholder="请输入厂商编号"></el-input>
                     </el-form-item> -->
-                    <el-form-item label="*联系人">
-                        <el-input v-model="subData.connect"  placeholder="请输入联系人"></el-input>
+                    <el-form-item :label="this.$t('localization.connent')">
+                        <el-input v-model="subData.connect"  :placeholder="this.$t('localization.connentPlease')"></el-input>
                     </el-form-item>
-                     <el-form-item label="*手机号">
-                        <el-input v-model="subData.mobile"  placeholder="请输入手机号"></el-input>
+                     <el-form-item :label="this.$t('localization.mobile')">
+                        <el-input v-model="subData.mobile"  :placeholder="this.$t('localization.mobilePlease')"></el-input>
                     </el-form-item>
-                    <el-form-item label="*联系地址">
-                        <el-input v-model="subData.address"  placeholder="请输入联系地址"></el-input>
+                    <el-form-item :label="this.$t('localization.address')">
+                        <el-input v-model="subData.address"  :placeholder="this.$t('localization.addressPlease')"></el-input>
                     </el-form-item>
                     <!-- <el-form-item label="状态">
                         <el-radio-group v-model="subData.roleId">
                             <el-radio :label="item.id" :key="item.id" v-for="item in roles">{{item.roleName}}</el-radio>
                         </el-radio-group>
                     </el-form-item> -->
-                    <el-form-item label="备注">
-                        <el-input v-model="subData.remark"  placeholder="请输入备注"></el-input>
+                    <el-form-item :label="this.$t('localization.remark')">
+                        <el-input v-model="subData.remark"  :placeholder="this.$t('localization.equipmentRemarkPlease')"></el-input>
                     </el-form-item>
-                    <el-form-item label="状态">
+                    <el-form-item :label="this.$t('localization.state')">
 					<el-radio-group v-model="subData.state">
-						<el-radio label="10">正常</el-radio>
-						<el-radio label="20">禁用</el-radio>
+						<el-radio label="10">{{this.$t('localization.ok')}}</el-radio>
+						<el-radio label="20">{{this.$t('localization.disok')}}</el-radio>
 					</el-radio-group>
                      
 				</el-form-item>
 			</el-form>	
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="dialogFormVisible = false">取 消</el-button>
-				<el-button type="primary" @click="open()">确 定</el-button>
+				<el-button @click="dialogFormVisible = false">{{this.$t('localization.false')}}</el-button>
+				<el-button type="primary" @click="open()">{{this.$t('localization.true')}}</el-button>
 			</div>
         </el-dialog>
       
@@ -196,7 +197,7 @@
     showAddPanel(){
         this.isEdit = false;
         this.dialogFormVisible = true;
-        this.formtitle ="新增用户账户";   
+        this.formtitle =this.$t('localization.add');   
         
         this.subData = {
             userName: '',
@@ -217,35 +218,35 @@
     validate(){
         if(this.subData.userName.trim() =="" || this.subData.userName == null){
              this.$message({
-                message: "用户名不能为空",
+                message: this.$t('localization.userName1Null'),
                 type: 'error'
             });
             return false;
         }
         if(this.subData.loginName.trim() =="" || this.subData.loginName == null){
              this.$message({
-                message: "登录名不能为空",
+                message: this.$t('localization.loginName1Null'),
                 type: 'error'
             });
             return false;
         }
         if(this.subData.password.trim() =="" || this.subData.password == null){
              this.$message({
-                message: "密码不能为空",
+                message: this.$t('localization.pwdNull'),
                 type: 'error'
             });
             return false;
         }
         if(this.subData.connect.trim() =="" || this.subData.connect == null){
              this.$message({
-                message: "联系人不能为空",
+                message: this.$t('localization.connentNull'),
                 type: 'error'
             });
             return false;
         }
         if(this.subData.address.trim() =="" || this.subData.address == null){
              this.$message({
-                message: "联系地址不能为空",
+                message: this.$t('localization.addressNull'),
                 type: 'error'
             });
             return false;
@@ -255,7 +256,7 @@
      edit(index, rows){
             this.isEdit = true;
             this.dialogFormVisible = true;
-		    this.formtitle ="修改用户账户";   
+		    this.formtitle =this.$t("localization.update");   
             this.subData = rows;
             this.subData.password = "******";
         //alert("asdf");
@@ -263,9 +264,9 @@
 
       },
       deleteRow(index, rows) {
-       this.$confirm('确认删除, 是否继续?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
+       this.$confirm(this.$t('localization.equipmentdeletePlease'), this.$t('localization.equipmentdeleteTitle'), {
+            confirmButtonText: this.$t('localization.true'),
+            cancelButtonText: this.$t('localization.false'),
             type: 'warning'
             }).then(() => {
             // this.$message({
@@ -278,13 +279,13 @@
 						//this.logining = false; 
                 if(response.code=='0000'){
                     this.$message({
-                        message: response.message,
+                        message: this.$t('localization.compluteSuccess'),
                         type: 'success'
                     });  
                     this.dialogFormVisible = false;
                 }else{
                     this.$message({
-                        message: response.message,
+                        message: this.$t('localization.compluteError'),
                         type: 'error'
                     });
                 }
@@ -300,17 +301,22 @@
             }).catch(() => {
             this.$message({
                 type: 'info',
-                message: '已取消删除'
+                message: this.$t('localization.equipmentdeleteOver')
             });          
             });
       },
     open(){
-       
-        if(this.formtitle == '新增用户账户'){
+        
+
+        /**
+         *  agentPlease:"请选择代理商"
+         */
+
+        if(this.formtitle == this.$t('localization.add')){
               
               if(this.communityId ==''){
                   this.$message({
-                    message: "请选择代理商",
+                    message: this.$t('localization.agentPlease'),
                     type: 'error'
                   });
               }
@@ -329,14 +335,14 @@
 						//this.logining = false; 
 						if(response.code=='0000'){
 							this.$message({
-								message: response.message,
+								message: this.$t('localization.compluteSuccess'),
 								type: 'success'
 							});  
                             this.dialogFormVisible = false;
                             this.$refs.tree.setCheckedKeys([this.communityId]);//预先选中id为1的节点;
 						}else{
 							this.$message({
-								message: response.message,
+								message: this.$t('localization.compluteError'),
 								type: 'error'
 							});
 						}
@@ -357,13 +363,13 @@
 						//this.logining = false; 
 						if(response.code=='0000'){
 							this.$message({
-								message: response.message,
+								message: this.$t('localization.compluteSuccess'),
 								type: 'success'
 							});  
 							this.dialogFormVisible = false;
 						}else{
 							this.$message({
-								message: response.message,
+								message: this.$t('localization.compluteError'),
 								type: 'error'
 							});
 						}
@@ -509,7 +515,7 @@
                
 
                 this.tree = [{
-                    label: '代理商管理',
+                    label: this.$t('localization.role16'),
                     children: item,
                     id:'0'
                 }];
@@ -556,7 +562,7 @@
                
 
                 this.tree = [{
-                    label: '代理商管理',
+                    label: this.$t('localization.role16'),
                     children: item,
                     id:'0'
                 }];
@@ -608,6 +614,8 @@
         roles:[],
         formtitle:"",
         datalist:[],
+        update1:this.$t("localization.update"),
+        delete1:this.$t("localization.delete"),
        
        
       };

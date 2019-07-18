@@ -7,19 +7,19 @@
                    
                     
                     <el-form-item>
-                        <el-button type="primary" @click="saveRole()">保存</el-button>
+                        <el-button type="primary" @click="saveRole()">{{this.$t('localization.save')}}</el-button>
                     </el-form-item>
                 </el-form>
             </el-col>
             <el-col :span="6">
-                <el-card header="角色">
+                <el-card :header="this.$t('localization.role')">
                       <el-radio-group v-model="roleId"  @change="selectItem()">
                             <el-radio :label="item.id"  :key="item.id" v-for="item in roles" style="width:300px;margin-left:0px;margin-bottom:20px">{{item.roleName}}</el-radio><br/>
                        </el-radio-group>
                 </el-card>
             </el-col>
             <el-col :span="18" style="font-size:14px;">
-                <el-card header="功能">
+                <el-card :header="this.$t('localization.function1')">
                         <table :label="m.id" :key="m.id"  v-for=" m in parentMenuData">
                         <tr style="height:40px">
                             <th style="text-align:left">

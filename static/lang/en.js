@@ -18,6 +18,8 @@ module.exports = {
      loginplacepwd1:"Password can't be empty!",
      loginplacecode1:"Verification code can't be empty! ",
      loginplacecode2:"Validation code input is incorrect or invalid",
+     loginUserError: "The login user does not exist",
+     loginPwdError: "Login password is wrong!",
 
 
 
@@ -43,12 +45,14 @@ module.exports = {
 
 
      createTime: "create time",
+     updateTime:"update time",
      state: "state",
      remark: "Remarks",
      complete: "Operation",
      update: "edit",
      delete: "delete",
      select: "query",
+     add:"add",
       ok: "Normal",
      disok: "disabled",
   
@@ -93,6 +97,7 @@ module.exports = {
      equipmentdName1Please: "Device name cannot be empty",
     compluteSuccess: "Operation succeeded",
      compluteError: "Operation failed",
+      compluteOver: "The device number already exists",
 
 
      meteType: "Please select the material type",
@@ -119,6 +124,16 @@ module.exports = {
      connent: "*contact",
      mobile: "*Mobile number",
      address: "*Contact Address",
+
+
+     userName2: "username",
+     loginName2: "loginname",
+     connent2: "contact",
+     mobile2: "Mobile number",
+     address2: "Contact Address",
+
+
+
      userName1Please: "Please enter a username",
      loginName1Please: "Please enter a login name",
      connentPlease: "Please enter a contact",
@@ -126,6 +141,7 @@ module.exports = {
      addressPlease: "Please enter the contact address",
      userName1Null: "Username cannot be empty",
      loginName1Null: "The login name cannot be empty",
+     pwdNull: "The new password cannot be empty",
      connentNull: "Contact cannot be empty",
      mobileNull: "The phone number cannot be empty",
      addressNull: "The contact address cannot be empty",
@@ -134,7 +150,39 @@ module.exports = {
      myMessage: "My Message",
      myPwd: "Change password",
      myOut: "Logout",
-     outTitle: "Are you sure to quit?"
+     outTitle: "Are you sure to quit?",
+     showUser: "Show users",
+     agentName: "Agent Name",
+     authUser: "Bind User",
+
+     agentPlease: "Please select an agent",
+
+     agentNo: "agent number",
+     agentNo2: "*agent number",
+     agentPwd: "password",
+     agentPwd2: "*password",
+     agentNoPlease: "Please enter the agent number",
+     agentPwdPlease: "Please enter a password",
+     agentPwdNull: "The password cannot be empty",
+     agentNoNull: "The agent number cannot be empty",
+     role:"role",
+
+     paramName: "parameter name",
+     paramName1: "*parameter name",
+     paramCNName: "parameter Chinese name",
+     paramCNName1: "*parameter Chinese name",
+     paramValue: "parameter value",
+     paramValue1: "*parameter value",
+     paramNamePlease: "Please enter a parameter name",
+     paramCNNamePlease: "Please enter the parameter Chinese name",
+     paramValuePlease: "Please enter a parameter value",
+     paramNameNull: "Parameter name cannot be empty",
+     paramCNNameNull: "Parameter Chinese name cannot be empty",
+     paramValueNull: "Parameter value cannot be empty",
+
+     function1: "function",
+     save: "Save",
+
 
 
 
