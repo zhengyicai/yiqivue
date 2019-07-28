@@ -388,6 +388,7 @@
 
             this.checkList1 = [];
             this.checkList2 = [];
+            this.allFileListIds =[];
 
 
             this.equipmentId = rows.id;
@@ -395,6 +396,11 @@
 						if(response.code == '0000'){
 
                             this.allFileList = response.data;
+
+
+                            for(var i = 0;i<response.data.length;i++){
+                                this.allFileListIds.push(response.data[i].id);
+                            }
                             if(this.allFileList.length<=0){
                                 this.$message({
                                     message: this.$t('localization.equipmentOnlineUser'),
@@ -495,19 +501,23 @@
                                             if(response.code == '0000'){
                                                  if(response.data.length>0){
                                                       for(var i=0;i<response.data.length;i++){
-                                                          if(response.data[i].type =='10'){
+
+                                                          if(this.allFileListIds.indexOf(response.data[i].fileId) !=-1){
+                                                                if(response.data[i].type =='10'){
                                                             
-                                                             if(response.data[i].align =="20"){
-                                                                    this.checkList2.push(response.data[i].fileId);       
-                                                             }else{
-                                                                 this.checkList1.push(response.data[i].fileId);
-                                                             }   
+                                                                    if(response.data[i].align =="20"){
+                                                                            this.checkList2.push(response.data[i].fileId);       
+                                                                    }else{
+                                                                        this.checkList1.push(response.data[i].fileId);
+                                                                    }   
 
 
-                                                          }else if(response.data[i].type =='20' || this.allFileListLeft2.length>0){
-                                                           
-                                                            this.checkList2.push(response.data[i].fileId);    
+                                                                }else if(response.data[i].type =='20' || this.allFileListLeft2.length>0){
+                                                                
+                                                                    this.checkList2.push(response.data[i].fileId);    
+                                                                }
                                                           }
+                                                          
                                                       }  
 
 
@@ -817,6 +827,7 @@
          checkList1: [],  //图片
          checkList2: [],  //视频
          allFileList:[], //所有图片资源
+         allFileListIds:[], //所有图片资源
          allFileListLeft:[], //左边图片资源
          allFileListRight:[], //右边视频资源
          allFileListLeft1:[],
