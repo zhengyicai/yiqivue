@@ -104,6 +104,7 @@
 		        <el-button size="small" v-if="adminUser!=1" type="primary"  @click="addFile(scope.$index,scope.row)">{{equipmentAuth}}</el-button>
                 <el-button size="small"  v-if="adminUser!=1" type="primary"  @click="update(scope.$index,scope.row)">{{updateBtn}}</el-button>
                 <el-button size="small" type="danger"  @click="deleteRow(scope.$index, scope.row)">{{deleteBtn}}</el-button>
+                <el-button size="small" v-if="scope.row.type=='50'" type="primary"  @click="addFileTitle(scope.$index,scope.row)">修改价格参数</el-button>
          
 				</template>
 			</el-table-column>
@@ -227,6 +228,42 @@
 			</el-form>	
 			<div slot="footer" class="dialog-footer">
 				<el-button @click="dialogFormTypeVisible = false">{{this.$t('localization.false')}}</el-button>
+				<el-button type="primary" @click="open1()">{{this.$t('localization.true')}}</el-button>
+			</div>
+        </el-dialog>
+
+
+
+        <el-dialog   :title="equipmentAuth" :visible.sync="dialogFormTypeVisible2" >
+             <!-- {{rows.type}} -->
+			<el-form  >
+                
+
+
+                <el-col :span="24" v-if="allFileListLeft2.length>0">    
+                 
+                  <el-col :span="12">
+                  
+                  <el-checkbox-group v-model="checkList2" >
+                        <el-checkbox  :span="24" style="margin-left:0px;height:50px" v-for="item in allFileListLeft2" :label="item.id" :key="item.id"><img :src="files+item.fileUrl" :span="6" style="height:30%;width:30%"><span  :span="12">{{item.remark}}</span></el-checkbox>
+                   </el-checkbox-group>  
+                  </el-col>
+
+                  <el-col :span="12">
+                  
+                    <el-button type="primary" style="margin-left:0px;height:30px; margin-bottom: 20px; line-height:0px;  display:block" v-for="item in allFileListLeft2" :label="item.id" :key="item.id" >修改参数</el-button><br/>
+                        
+                  
+                  </el-col>
+                 
+                </el-col>    
+
+                  
+
+
+			</el-form>	
+			<div slot="footer" class="dialog-footer">
+				<el-button @click="dialogFormTypeVisible2 = false">{{this.$t('localization.false')}}</el-button>
 				<el-button type="primary" @click="open1()">{{this.$t('localization.true')}}</el-button>
 			</div>
         </el-dialog>
@@ -388,7 +425,6 @@
 
             this.checkList1 = [];
             this.checkList2 = [];
-            this.allFileListIds =[];
 
 
             this.equipmentId = rows.id;
@@ -396,11 +432,6 @@
 						if(response.code == '0000'){
 
                             this.allFileList = response.data;
-
-
-                            for(var i = 0;i<response.data.length;i++){
-                                this.allFileListIds.push(response.data[i].id);
-                            }
                             if(this.allFileList.length<=0){
                                 this.$message({
                                     message: this.$t('localization.equipmentOnlineUser'),
@@ -501,23 +532,19 @@
                                             if(response.code == '0000'){
                                                  if(response.data.length>0){
                                                       for(var i=0;i<response.data.length;i++){
-
-                                                          if(this.allFileListIds.indexOf(response.data[i].fileId) !=-1){
-                                                                if(response.data[i].type =='10'){
+                                                          if(response.data[i].type =='10'){
                                                             
-                                                                    if(response.data[i].align =="20"){
-                                                                            this.checkList2.push(response.data[i].fileId);       
-                                                                    }else{
-                                                                        this.checkList1.push(response.data[i].fileId);
-                                                                    }   
+                                                             if(response.data[i].align =="20"){
+                                                                    this.checkList2.push(response.data[i].fileId);       
+                                                             }else{
+                                                                 this.checkList1.push(response.data[i].fileId);
+                                                             }   
 
 
-                                                                }else if(response.data[i].type =='20' || this.allFileListLeft2.length>0){
-                                                                
-                                                                    this.checkList2.push(response.data[i].fileId);    
-                                                                }
+                                                          }else if(response.data[i].type =='20' || this.allFileListLeft2.length>0){
+                                                           
+                                                            this.checkList2.push(response.data[i].fileId);    
                                                           }
-                                                          
                                                       }  
 
 
@@ -544,6 +571,166 @@
                             
             })  
              this.dialogFormTypeVisible = true;
+
+
+
+      },
+
+      addFileTitle(index, rows){
+            this.allFileListLeft= [];
+            this.allFileListLeft2 = [];
+            this.allFileListLeft1 = [];
+            this.allFileListRight= [];
+
+
+            this.checkList1 = [];
+            this.checkList2 = [];
+
+
+            this.equipmentId = rows.id;
+            RequestGet("/sysEquipment/equipmentFile/findAllType",{userId:sessionStorage.getItem("userId")}).then(response => {
+						if(response.code == '0000'){
+
+                            this.allFileList = response.data;
+                            if(this.allFileList.length<=0){
+                                this.$message({
+                                    message: this.$t('localization.equipmentOnlineUser'),
+                                    type: 'success'
+                                });    
+                                return;
+                            }
+                            
+                            if(rows.type == '10'){
+
+                                for(var i = 0;i<this.allFileList.length;i++){
+                                  
+                                    if(this.allFileList[i].standards =="40" && this.allFileList[i].type =="10" ){
+                                        this.allFileListLeft.push(this.allFileList[i]);
+                                    }else if(this.allFileList[i].standards =="40" && this.allFileList[i].type =="20" ){
+                                        
+                                        //this.allFileListRight.push(this.allFileList[i]);
+                                    }
+       
+                                }
+                                
+                            }else if(rows.type == '20'){
+
+                                for(var i = 0;i<this.allFileList.length;i++){
+                                    
+                                    if(this.allFileList[i].standards =="40" && this.allFileList[i].type =="20" ){    
+                                        this.allFileListRight.push(this.allFileList[i]);
+                                    }                                       
+                                }
+                                
+                            }else if(rows.type == '30'){
+
+                                for(var i = 0;i<this.allFileList.length;i++){
+                                    
+                                    if(this.allFileList[i].standards =="10" && this.allFileList[i].type =="10" ){    
+                                        this.allFileListLeft.push(this.allFileList[i]);
+                                    }else if(this.allFileList[i].standards =="30" && this.allFileList[i].type =="20" ){
+                                        
+                                        this.allFileListRight.push(this.allFileList[i]);
+                                    }
+
+                                }
+                                
+                            }else if(rows.type == '40'){
+
+                                for(var i = 0;i<this.allFileList.length;i++){
+                                    
+                                    if(this.allFileList[i].standards =="10" && this.allFileList[i].type =="10" ){    
+                                        this.allFileListLeft.push(this.allFileList[i]);
+                                    }else if(this.allFileList[i].standards =="30" && this.allFileList[i].type =="20" ){
+                                        
+                                        this.allFileListRight.push(this.allFileList[i]);
+                                    }
+
+                                }
+                                
+                            }else if(rows.type == '50'){
+
+                                for(var i = 0;i<this.allFileList.length;i++){
+                                    
+                                    if(this.allFileList[i].standards =="10" && this.allFileList[i].type =="10" ){    
+                                        this.allFileListLeft1.push(this.allFileList[i]);
+                                    }else if(this.allFileList[i].standards =="30" && this.allFileList[i].type =="10" ){
+                                        
+                                        this.allFileListLeft2.push(this.allFileList[i]);
+                                    }
+
+                                }
+                                
+                            }else if(rows.type == '60'){
+
+                                for(var i = 0;i<this.allFileList.length;i++){
+                                    
+                                    if(this.allFileList[i].standards =="30" && this.allFileList[i].type =="10" ){    
+                                       this.allFileListLeft1.push(this.allFileList[i]);
+                                    }else if(this.allFileList[i].standards =="10" && this.allFileList[i].type =="10" ){
+                                        this.allFileListLeft2.push(this.allFileList[i]);
+                                    }
+
+                                }
+                                
+                            }else if(rows.type == '70'){
+
+                                for(var i = 0;i<this.allFileList.length;i++){
+                                    
+                                    if(this.allFileList[i].standards =="20" && this.allFileList[i].type =="10" ){    
+                                       this.allFileListLeft1.push(this.allFileList[i]);
+                                       this.allFileListLeft2.push(this.allFileList[i]);
+                                    }
+
+                                }
+                                
+                            }
+
+
+
+                            RequestGet("/sysEquipment/equipmentFile/findSelectType",{equipmentId:this.equipmentId}).then(response => {
+                                            if(response.code == '0000'){
+                                                 if(response.data.length>0){
+                                                      for(var i=0;i<response.data.length;i++){
+                                                          if(response.data[i].type =='10'){
+                                                            
+                                                             if(response.data[i].align =="20"){
+                                                                    this.checkList2.push(response.data[i].fileId);       
+                                                             }else{
+                                                                 this.checkList1.push(response.data[i].fileId);
+                                                             }   
+
+
+                                                          }else if(response.data[i].type =='20' || this.allFileListLeft2.length>0){
+                                                           
+                                                            this.checkList2.push(response.data[i].fileId);    
+                                                          }
+                                                      }  
+
+
+                                                 }
+                                            }
+                                        
+                            }).catch(error => {
+                                            this.$router.push({ path: '/login' });
+                                            
+                            })  
+
+                            
+                            
+
+
+
+
+
+							
+						 }
+                        
+            }).catch(error => {
+                            this.$router.push({ path: '/login' });
+                            
+            })  
+             this.dialogFormTypeVisible2 = true;
 
 
 
@@ -817,6 +1004,7 @@
 		listLoading: false,
         dialogFormVisible:false,
         dialogFormTypeVisible:false,
+        dialogFormTypeVisible2:false,
         equipmentId:"", //当前设备编号
         adminUser:0,  //是否为admin      
         subData:{
@@ -827,7 +1015,6 @@
          checkList1: [],  //图片
          checkList2: [],  //视频
          allFileList:[], //所有图片资源
-         allFileListIds:[], //所有图片资源
          allFileListLeft:[], //左边图片资源
          allFileListRight:[], //右边视频资源
          allFileListLeft1:[],
