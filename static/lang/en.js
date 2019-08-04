@@ -184,6 +184,20 @@ module.exports = {
      save: "Save",
 
 
+     
+    equipmentBindTitle: "Binding Material",
+    equipmentParamParam1: "Name",
+    equipmentParamParam2: "Specifications",
+    equipmentParamParam3: "Units",
+    equipmentParamParam4: "Unit Price",
+    equipmentParamParam5: "Introduction",
+    equipmentParamParam1Please:"Please enter a name",
+    equipmentParamParam2Please: "Please enter specifications",
+    equipmentParamParam3lease:'Please enter units',
+    equipmentParamParam4Please: "Please enter unit price",
+    equipmentParamParam5Please: "Please enter a brief introduction",
+
+
 
 
      }

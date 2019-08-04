@@ -126,28 +126,7 @@
         <el-dialog   :title="formtitle" :visible.sync="dialogFormVisible" >
 			<el-form ref="subData" :model="subData" label-width="100px" @submit.prevent="onSubmit" style="margin:20px;"  id="formid" action=""  method="post" enctype="multipart/form-data" target="frameName">
                     
-                    <!-- <el-form-item label="设备类型">
-                       <el-select  v-model="subData.equipmentType" placeholder="请选择设备类型" @change="selectEquType(subData.equipmentType)">
-                           <el-option :label="item.label" :key="item.value" :value="item.value" v-for="item in options">{{item.label}}</el-option>
-					    </el-select>
-                    </el-form-item>  -->
-
-
-
-                    <!-- 
-                            equipmentNoPlease:"请输入设备编号",
-                            equipmentName1Please:"请输入设备名称",
-                            equipmentTypePlease:"请选择展示类型",
-                            equipmentRemarkPlease:"请输入备注",
-                            equipmentImage:"图片",
-                            equipmentVideo:"视频",
-                            equipmentImageL:"左图片",
-                            equipmentImageR:"右图片",
-
-
-
-                     -->
-
+                   
                     <el-form-item :label="this.$t('localization.equipmentNo')">
                         <el-input name="equipmentNo"  v-model="subData.equipmentNo"  :placeholder="this.$t('localization.equipmentNoPlease')"></el-input>
                     </el-form-item>
@@ -183,6 +162,42 @@
 			<div slot="footer" class="dialog-footer">
 				<el-button @click="dialogFormVisible = false">{{this.$t('localization.false')}}</el-button>
 				<el-button type="primary" @click="open()">{{this.$t('localization.true')}}</el-button>
+			</div>
+        </el-dialog>
+
+
+
+
+         <!-- 修改参数    -->
+        <el-dialog   :title="formtitle" :visible.sync="dialogFormVisibleParam" >
+			<el-form ref="subData" :model="subData" label-width="100px" @submit.prevent="onSubmit" style="margin:20px;"  id="formid" action=""  method="post" enctype="multipart/form-data" target="frameName">
+                    
+                   
+                    <el-form-item :label="this.$t('localization.equipmentParamParam1')">
+                        <el-input name="equipmentParamParam1"  v-model="equipmentParamParam1"  :placeholder="this.$t('localization.equipmentParamParam1Please')"></el-input>
+                    </el-form-item>
+                    <el-form-item :label="this.$t('localization.equipmentParamParam2')">
+                        <el-input name="equipmentParamParam2"  v-model="equipmentParamParam2"  :placeholder="this.$t('localization.equipmentParamParam2Please')"></el-input>
+                    </el-form-item>
+                    <el-form-item :label="this.$t('localization.equipmentParamParam3')">
+                        <el-input name="equipmentParamParam3"  v-model="equipmentParamParam3"  :placeholder="this.$t('localization.equipmentParamParam3Please')"></el-input>
+                    </el-form-item>
+                    <el-form-item :label="this.$t('localization.equipmentParamParam4')">
+                        <el-input name="equipmentParamParam4"  v-model="equipmentParamParam4"  :placeholder="this.$t('localization.equipmentParamParam4Please')"></el-input>
+                    </el-form-item>
+                    <el-form-item :label="this.$t('localization.equipmentParamParam5')">
+                        <el-input name="equipmentParamParam5"  v-model="equipmentParamParam5"  :placeholder="this.$t('localization.equipmentParamParam5Please')"></el-input>
+                    </el-form-item>
+                   
+
+                
+        
+                    
+
+			</el-form>	
+			<div slot="footer" class="dialog-footer">
+				<el-button @click="dialogFormVisibleParam = false">{{this.$t('localization.false')}}</el-button>
+				<el-button type="primary" @click="openParam()">{{this.$t('localization.true')}}</el-button>
 			</div>
         </el-dialog>
 
@@ -251,7 +266,7 @@
 
                   <el-col :span="12">
                   
-                    <el-button type="primary" style="margin-left:0px;height:30px; margin-bottom: 20px; line-height:0px;  display:block" v-for="item in allFileListLeft2" :label="item.id" :key="item.id" >修改参数</el-button><br/>
+                    <el-button type="primary" style="margin-left:0px;height:30px; margin-bottom: 20px; line-height:0px;  display:block" v-for="item in allFileListLeft2" :label="item.id" :key="item.id"  @click="updateparam(item.id)" >修改参数</el-button><br/>
                         
                   
                   </el-col>
@@ -353,6 +368,51 @@
            this.subData.userName = sessionStorage.getItem("loginName");
            this.subData.userId = sessionStorage.getItem("userId"); 
 
+
+      },
+      updateparam(id){
+        this.formtitle =this.$t('localization.equipmentBindTitle');
+        this.dialogFormVisibleParam = true;
+
+        this.equipmentFileId = id;
+        this.equipmentParamParam1 ="";  
+        this.equipmentParamParam2 = "";  
+        this.equipmentParamParam3 = "";  
+        this.equipmentParamParam4 = "";  
+        this.equipmentParamParam5 = "";  
+
+        RequestGet("/sysEquipment/equipmentFile/findOne",{equipmentId:this.equipmentId,fileId:this.equipmentFileId}).then(response => {
+                        if(response.code == '0000'){
+                            if(response.data.titleDetail !=null){
+                                     var strs = new Array(); //定义一数组
+                                        strs  = response.data.titleDetail.split(",");
+                                        //alert(strs);                    
+                                    
+                                        this.equipmentParamParam1 = strs[0]=="null"?"":strs[0];  
+                                        this.equipmentParamParam2 = strs[1]=="null"?"":strs[1];    
+                                        this.equipmentParamParam3 = strs[2]=="null"?"":strs[2];    
+                                        this.equipmentParamParam4 = strs[3]=="null"?"":strs[3];    
+                                        this.equipmentParamParam5 = strs[4]=="null"?"":strs[4];    
+                                    
+                            }
+                            
+                            
+                        }
+                    
+        }).catch(error => {
+                        this.$router.push({ path: '/login' });
+                        
+        })  
+
+        
+
+
+       
+       // alert(detail);
+       
+        
+        //this.show = "2";
+        //this.subData =  rows;    
 
       },
 
@@ -585,6 +645,13 @@
 
             this.checkList1 = [];
             this.checkList2 = [];
+
+            this.equipmentIds  = rows.id;
+            // this.equipmentParamParam1 = "";
+            // this.equipmentParamParam2 = "";
+            // this.equipmentParamParam3 = "";
+            // this.equipmentParamParam4 = "";
+            // this.equipmentParamParam5 = "";
 
 
             this.equipmentId = rows.id;
@@ -823,7 +890,66 @@
 
        
       },
-     
+      openParam(){
+
+
+          
+          var title1 = (this.equipmentParamParam1==""?"null":this.equipmentParamParam1)+",";
+          var title2 = (this.equipmentParamParam2==""?"null":this.equipmentParamParam2)+",";
+          var title3 = (this.equipmentParamParam3==""?"null":this.equipmentParamParam3)+",";
+          var title4 = (this.equipmentParamParam4==""?"null":this.equipmentParamParam4)+",";
+          var title5 = (this.equipmentParamParam5==""?"null":this.equipmentParamParam5);
+
+
+          //this.equipmentFileId
+          //this.equipmentIds
+
+
+          var sta = {
+              equipmentId:this.equipmentIds,
+              fileId:this.equipmentFileId,
+              titleDetail:title1+title2+title3+title4+title5
+          }  
+          
+         
+
+          RequestPost("/sysEquipment/equipmentFile/updateTitle",sta).then(response => {
+                if(response.code == '0000'){
+                        this.$message({
+                            message: this.$t('localization.compluteSuccess'),
+                            type: 'success'
+                        });  
+                        
+                        this.dialogFormVisibleParam = false;
+                        this.loadFile(this.equipmentIds);
+                        //this.loadData();
+                        
+                }else{
+
+                    // if("该设备号已经存在" == response.message){
+                        
+                    //      this.$message({
+                    //         message: this.$t('localization.compluteOver'),
+                    //         type: 'error'
+                    //     });
+                    // }else{
+                    //    this.$message({
+                    //         message: this.$t('localization.compluteError'),
+                    //         type: 'error'
+                    //     });     
+                    // }
+
+                    
+
+                }
+                        
+            }).catch(error => {
+                            this.$router.push({ path: '/login' });
+                            
+            })  
+
+
+      },
       open(){
         
          
@@ -930,7 +1056,172 @@
         
 						
 	
-	},
+    },
+    
+    loadFile(id){
+
+
+            this.allFileListLeft= [];
+            this.allFileListLeft2 = [];
+            this.allFileListLeft1 = [];
+            this.allFileListRight= [];
+
+
+            this.checkList1 = [];
+            this.checkList2 = [];
+
+             
+            var rows = {
+                type:"50"
+            }
+
+            
+       RequestGet("/sysEquipment/equipmentFile/findAllType",{userId:sessionStorage.getItem("userId")}).then(response => {
+						if(response.code == '0000'){
+
+                            this.allFileList = response.data;
+                            if(this.allFileList.length<=0){
+                                this.$message({
+                                    message: this.$t('localization.equipmentOnlineUser'),
+                                    type: 'success'
+                                });    
+                                return;
+                            }
+                            
+                            if(rows.type == '10'){
+
+                                for(var i = 0;i<this.allFileList.length;i++){
+                                  
+                                    if(this.allFileList[i].standards =="40" && this.allFileList[i].type =="10" ){
+                                        this.allFileListLeft.push(this.allFileList[i]);
+                                    }else if(this.allFileList[i].standards =="40" && this.allFileList[i].type =="20" ){
+                                        
+                                        //this.allFileListRight.push(this.allFileList[i]);
+                                    }
+       
+                                }
+                                
+                            }else if(rows.type == '20'){
+
+                                for(var i = 0;i<this.allFileList.length;i++){
+                                    
+                                    if(this.allFileList[i].standards =="40" && this.allFileList[i].type =="20" ){    
+                                        this.allFileListRight.push(this.allFileList[i]);
+                                    }                                       
+                                }
+                                
+                            }else if(rows.type == '30'){
+
+                                for(var i = 0;i<this.allFileList.length;i++){
+                                    
+                                    if(this.allFileList[i].standards =="10" && this.allFileList[i].type =="10" ){    
+                                        this.allFileListLeft.push(this.allFileList[i]);
+                                    }else if(this.allFileList[i].standards =="30" && this.allFileList[i].type =="20" ){
+                                        
+                                        this.allFileListRight.push(this.allFileList[i]);
+                                    }
+
+                                }
+                                
+                            }else if(rows.type == '40'){
+
+                                for(var i = 0;i<this.allFileList.length;i++){
+                                    
+                                    if(this.allFileList[i].standards =="10" && this.allFileList[i].type =="10" ){    
+                                        this.allFileListLeft.push(this.allFileList[i]);
+                                    }else if(this.allFileList[i].standards =="30" && this.allFileList[i].type =="20" ){
+                                        
+                                        this.allFileListRight.push(this.allFileList[i]);
+                                    }
+
+                                }
+                                
+                            }else if(rows.type == '50'){
+
+                                for(var i = 0;i<this.allFileList.length;i++){
+                                    
+                                    if(this.allFileList[i].standards =="10" && this.allFileList[i].type =="10" ){    
+                                        this.allFileListLeft1.push(this.allFileList[i]);
+                                    }else if(this.allFileList[i].standards =="30" && this.allFileList[i].type =="10" ){
+                                        
+                                        this.allFileListLeft2.push(this.allFileList[i]);
+                                    }
+
+                                }
+                                
+                            }else if(rows.type == '60'){
+
+                                for(var i = 0;i<this.allFileList.length;i++){
+                                    
+                                    if(this.allFileList[i].standards =="30" && this.allFileList[i].type =="10" ){    
+                                       this.allFileListLeft1.push(this.allFileList[i]);
+                                    }else if(this.allFileList[i].standards =="10" && this.allFileList[i].type =="10" ){
+                                        this.allFileListLeft2.push(this.allFileList[i]);
+                                    }
+
+                                }
+                                
+                            }else if(rows.type == '70'){
+
+                                for(var i = 0;i<this.allFileList.length;i++){
+                                    
+                                    if(this.allFileList[i].standards =="20" && this.allFileList[i].type =="10" ){    
+                                       this.allFileListLeft1.push(this.allFileList[i]);
+                                       this.allFileListLeft2.push(this.allFileList[i]);
+                                    }
+
+                                }
+                                
+                            }
+
+
+                            RequestGet("/sysEquipment/equipmentFile/findSelectType",{equipmentId:id}).then(response => {
+                                            if(response.code == '0000'){
+                                                 if(response.data.length>0){
+                                                      for(var i=0;i<response.data.length;i++){
+                                                          if(response.data[i].type =='10'){
+                                                            
+                                                             if(response.data[i].align =="20"){
+                                                                    this.checkList2.push(response.data[i].fileId);       
+                                                             }else{
+                                                                 this.checkList1.push(response.data[i].fileId);
+                                                             }   
+
+
+                                                          }else if(response.data[i].type =='20' || this.allFileListLeft2.length>0){
+                                                           
+                                                            this.checkList2.push(response.data[i].fileId);    
+                                                          }
+                                                      }  
+
+
+                                                 }
+                                            }
+                                        
+                            }).catch(error => {
+                                            this.$router.push({ path: '/login' });
+                                            
+                            })  
+
+
+
+                           
+                            
+                            
+
+
+
+
+
+							
+						 }
+                        
+            }).catch(error => {
+                            this.$router.push({ path: '/login' });
+                            
+            })  
+             this.dialogFormTypeVisible2 = true;
+    },
 
   
     
@@ -1003,6 +1294,7 @@
         equipmentNo:"",
 		listLoading: false,
         dialogFormVisible:false,
+        dialogFormVisibleParam:false,
         dialogFormTypeVisible:false,
         dialogFormTypeVisible2:false,
         equipmentId:"", //当前设备编号
@@ -1048,7 +1340,14 @@
         }],
         updateBtn:this.$t("localization.update"),
         deleteBtn:this.$t("localization.delete"),
-        equipmentAuth:this.$t("localization.equipmentAuth")
+        equipmentAuth:this.$t("localization.equipmentAuth"),
+        equipmentParamParam1:"",
+        equipmentParamParam2:"",
+        equipmentParamParam3:"",
+        equipmentParamParam4:"",
+        equipmentParamParam5:"",
+        equipmentFileId:"",
+        equipmentIds:""
 
       };
     }

@@ -179,6 +179,19 @@ module.exports = {
     save:"保存",
 
 
+    //名称,规格，单价，单位，简介
+    equipmentBindTitle:"绑定素材",    
+    equipmentParamParam1:"名称",
+    equipmentParamParam2:"规格",
+    equipmentParamParam3:"单位",
+    equipmentParamParam4:"单价",
+    equipmentParamParam5:"简介",
+    equipmentParamParam1Please:"请输入名称",
+    equipmentParamParam2Please:"请输入规格",
+    equipmentParamParam3Please:"请输入单位",
+    equipmentParamParam4Please:"请输入单价",
+    equipmentParamParam5Please:"请输入简介",
+
 
     
 

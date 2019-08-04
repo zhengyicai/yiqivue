@@ -172,6 +172,18 @@ module.exports = {
     function1:"功能",
     save:"保存",
 
+    equipmentBindTitle:"綁定素材",    
+    equipmentParamParam1:"名稱",
+    equipmentParamParam2:"規格",
+    equipmentParamParam3:"單位",
+    equipmentParamParam4:"單價",
+    equipmentParamParam5:"簡介",
+    equipmentParamParam1Please:"請輸入名稱",
+    equipmentParamParam2Please:"請輸入規格",
+    equipmentParamParam3Please:"請輸入單位",
+    equipmentParamParam4Please:"請輸入單價",
+    equipmentParamParam5Please:"請輸入簡介",
+
     
  
     }
