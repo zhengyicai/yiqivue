@@ -381,6 +381,7 @@
         this.equipmentParamParam4 = "";  
         this.equipmentParamParam5 = "";  
 
+
         
 
         RequestGet("/sysEquipment/equipmentFile/findOne",{equipmentId:this.equipmentId,fileId:this.equipmentFileId}).then(response => {
