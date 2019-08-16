@@ -102,6 +102,11 @@ module.exports = {
     metegui1:"素材規格",
     metemes:"只能上傳圖片jpg/png格式,視頻只能為mp4格式",
 
+    equipmentRunTime:"圖片輪播時間(單位/秒)",
+    equipmentUpdateTims:"更新數據時間(單位/秒)",
+    equipmentRunTimePlease:"請輸入圖片輪播時間(單位/秒)",
+    equipmentUpdateTimsPlease:"請輸入更新數據時間(單位/秒)",
+
     updatePwd:"修改密碼",
     updateOld:"*舊密碼",
     updateNew:"*新密碼",
@@ -183,6 +188,8 @@ module.exports = {
     equipmentParamParam3Please:"請輸入單位",
     equipmentParamParam4Please:"請輸入單價",
     equipmentParamParam5Please:"請輸入簡介",
+    equipmentUpdatePrice:"修改價格參數",
+    equipmentUpdateParam:"修改參數",
 
     
  

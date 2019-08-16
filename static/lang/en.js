@@ -196,6 +196,15 @@ module.exports = {
     equipmentParamParam3lease:'Please enter units',
     equipmentParamParam4Please: "Please enter unit price",
     equipmentParamParam5Please: "Please enter a brief introduction",
+    equipmentUpdatePrice: "update price parameters",
+    equipmentUpdateParam: "update parameters",
+
+
+
+     equipmentRunTime: "picture rotation time(Units/second)",
+     equipmentUpdateTims: "Update data time(Units/second)",
+     equipmentRunTimePlease: "Please enter the picture rotation time(Units/second)",
+     equipmentUpdateTimsPlease: "Please enter the time to update the data(Units/second)",
 
 
 

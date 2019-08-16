@@ -104,7 +104,7 @@
 		        <el-button size="small" v-if="adminUser!=1" type="primary"  @click="addFile(scope.$index,scope.row)">{{equipmentAuth}}</el-button>
                 <el-button size="small"  v-if="adminUser!=1" type="primary"  @click="update(scope.$index,scope.row)">{{updateBtn}}</el-button>
                 <el-button size="small" type="danger"  @click="deleteRow(scope.$index, scope.row)">{{deleteBtn}}</el-button>
-                <el-button size="small" v-if="scope.row.type=='50'" type="primary"  @click="addFileTitle(scope.$index,scope.row)">修改价格参数</el-button>
+                <el-button size="small" v-if="scope.row.type=='50'" type="primary"  @click="addFileTitle(scope.$index,scope.row)">{{equipmentUpdatePrice}}</el-button>
          
 				</template>
 			</el-table-column>
@@ -146,15 +146,21 @@
                         </el-select>
                      </el-form-item>   
 
-                    <el-form-item :label="this.$t('localization.state')">
+                    <!-- <el-form-item :label="this.$t('localization.state')">
                         <el-radio-group  name="state" v-model="subData.state">
                             <el-radio label="10">{{this.$t('localization.ok')}}</el-radio>
                             <el-radio label="20">{{this.$t('localization.disok')}}</el-radio>
                         </el-radio-group>
-                    </el-form-item>
+                    </el-form-item> -->
         
                     <el-form-item :label="this.$t('localization.remark')">
                         <el-input name="remark"  v-model="subData.remark"  :placeholder="this.$t('localization.equipmentRemarkPlease')"></el-input>
+                    </el-form-item>
+                     <el-form-item :label="this.$t('localization.equipmentRunTime')">
+                        <el-input name="runTime"  v-model="subData.runTime"  :placeholder="this.$t('localization.equipmentRunTimePlease')"></el-input>
+                    </el-form-item>
+                     <el-form-item :label="this.$t('localization.equipmentRunTime')">
+                        <el-input name="updateTimes"  v-model="subData.updateTimes"  :placeholder="this.$t('localization.equipmentUpdateTimsPlease')"></el-input>
                     </el-form-item>
 
 
@@ -266,7 +272,7 @@
 
                   <el-col :span="12">
                   
-                    <el-button type="primary" style="margin-left:0px;height:30px; margin-bottom: 20px; line-height:0px;  display:block" v-for="item in allFileListLeft2" :label="item.id" :key="item.id"  @click="updateparam(item.id)" >修改参数</el-button><br/>
+                    <el-button type="primary" style="margin-left:0px;height:30px; margin-bottom: 20px; line-height:0px;  display:block" v-for="item in allFileListLeft2" :label="item.id" :key="item.id"  @click="updateparam(item.id)" >{{equipmentUpdateParam}}</el-button><br/>
                         
                   
                   </el-col>
@@ -278,8 +284,8 @@
 
 			</el-form>	
 			<div slot="footer" class="dialog-footer">
-				<el-button @click="dialogFormTypeVisible2 = false">{{this.$t('localization.false')}}</el-button>
-				<el-button type="primary" @click="open1()">{{this.$t('localization.true')}}</el-button>
+				<!-- <el-button  type="primary" @click="dialogFormTypeVisible2 = false">{{this.$t('localization.true')}}</el-button> -->
+				<!-- <el-button type="primary" @click="open1()">{{this.$t('localization.true')}}</el-button> -->
 			</div>
         </el-dialog>
 
@@ -367,6 +373,9 @@
             };
            this.subData.userName = sessionStorage.getItem("loginName");
            this.subData.userId = sessionStorage.getItem("userId"); 
+
+           this.subData.runTime = 3;
+           this.subData.updateTimes = 120;
 
 
       },
@@ -962,7 +971,9 @@
         // $("#formid").attr("action",$base_path+"/file/upload");
 		// $("#formid").submit();
 
-        this.validate();
+        if(!this.validate()){
+            return;
+        }
 
 
         if(this.show =="1"){
@@ -1246,6 +1257,24 @@
             return false;
         }
 
+
+        if(this.subData.runTime<1 || this.subData.runTime == null || this.subData.runTime == ""){
+            this.$message({
+                type: 'error',
+                message: this.$t('localization.equipmentRunTimePlease')
+            });         
+            return false;
+        }
+
+
+        if(this.subData.updateTimes<1 || this.subData.updateTimes == null || this.subData.runTime == ""){
+            this.$message({
+                type: 'error',
+                message: this.$t('localization.equipmentUpdateTimsPlease')
+            });         
+            return false;
+        }
+
         // if(this.subData.communityId.trim()=="" || this.subData.communityId == null){
         //     this.$message({
         //         type: 'error',
@@ -1261,6 +1290,7 @@
         //     });         
         //     return false;
         // }
+        return true;
 
         
 
@@ -1344,6 +1374,8 @@
         updateBtn:this.$t("localization.update"),
         deleteBtn:this.$t("localization.delete"),
         equipmentAuth:this.$t("localization.equipmentAuth"),
+        equipmentUpdatePrice:this.$t("localization.equipmentUpdatePrice"),
+        equipmentUpdateParam:this.$t("localization.equipmentUpdateParam"),
         equipmentParamParam1:"",
         equipmentParamParam2:"",
         equipmentParamParam3:"",

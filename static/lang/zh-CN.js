@@ -97,6 +97,11 @@ module.exports = {
     equipmentdName1Please:"设备名称不能为空",
     compluteSuccess:"操作成功",
 
+    equipmentRunTime:"图片轮播时间(单位/秒)",
+    equipmentUpdateTims:"更新数据时间(单位/秒)",
+    equipmentRunTimePlease:"请输入图片轮播时间(单位/秒)",
+    equipmentUpdateTimsPlease:"请输入更新数据时间(单位/秒)",
+
     compluteOver:"该设备号已经存在",
     compluteError:"操作失败",
 
@@ -191,6 +196,10 @@ module.exports = {
     equipmentParamParam3Please:"请输入单位",
     equipmentParamParam4Please:"请输入单价",
     equipmentParamParam5Please:"请输入简介",
+    equipmentUpdatePrice:"修改价格参数",
+    equipmentUpdateParam:"修改参数",
+
+
 
 
     
