@@ -137,7 +137,7 @@
                    <el-form-item :label="this.$t('localization.equipmentNo')"> 
                    <el-upload
                     class="upload-demo"
-                    action="http://123.207.121.118:8080/cms/file/upload"
+                    action="http://49.235.254.152:8080/cms/file/upload"
                     :data="subData"
                     :limit="1"
                     :on-preview="handlePreview"

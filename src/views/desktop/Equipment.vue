@@ -159,7 +159,7 @@
                      <el-form-item :label="this.$t('localization.equipmentRunTime')">
                         <el-input name="runTime"  v-model="subData.runTime"  :placeholder="this.$t('localization.equipmentRunTimePlease')"></el-input>
                     </el-form-item>
-                     <el-form-item :label="this.$t('localization.equipmentRunTime')">
+                     <el-form-item :label="this.$t('localization.equipmentUpdateTims')">
                         <el-input name="updateTimes"  v-model="subData.updateTimes"  :placeholder="this.$t('localization.equipmentUpdateTimsPlease')"></el-input>
                     </el-form-item>
 
